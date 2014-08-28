@@ -1,0 +1,32 @@
+.wrap_buttos_fb{}
+.wrap_buttos_fb:before{
+    font-family: "FontAwesome";
+    content: "\f09a";
+    position: absolute;
+    top: 26px;
+    left: 23px;
+    color: #C7C7C7;
+    font-size: 58px;
+}
+
+.wrap_buttos_tw{}
+.wrap_buttos_tw:before{
+    font-family: "FontAwesome";
+    content: "\f099";
+    position: absolute;
+    top: 26px;
+    left: 23px;
+    color: #C7C7C7;
+    font-size: 58px;
+}
+
+.wrap_buttos_go{}
+.wrap_buttos_go:before{
+    font-family: "FontAwesome";
+    content: "\f0d5";
+    position: absolute;
+    top: 26px;
+    left: 23px;
+    color: #C7C7C7;
+    font-size: 58px;
+}
