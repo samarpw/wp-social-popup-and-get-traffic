@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 2.3
+Version: 2.4
 Author: iLen
 Author URI: http://es.ilentheme.com
 */
