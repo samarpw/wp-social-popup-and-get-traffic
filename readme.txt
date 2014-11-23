@@ -7,8 +7,8 @@ Author URI:
 Author: iLen
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 2.2
-Version: 2.4
+Stable tag: 2.4
+Version: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 2.4.1 =
+* Update core <code>iLenFramework 1.7</code>
 = 2.4 =
 * Update core <code>iLenFramework 1.6.6</code>
 = 2.3 =
