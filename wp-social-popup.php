@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 2.4.1
+Version: 2.5
 Author: iLen
 Author URI: http://es.ilentheme.com
 */
@@ -206,6 +206,9 @@ class wp_social_popup extends wp_social_popup_make{
             if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
                 wp_enqueue_script('wsp-go', 'https://apis.google.com/js/plusone.js', array('jquery'),$this->parameter['version'],FALSE);
             }
+      if( is_rtl() ){
+        wp_enqueue_style('wsp-css-rtl', plugins_url( 'assets/css/spu-rtl.css' , __FILE__ ),'all',$this->parameter['version']);
+      }
 	}
 
 	/**

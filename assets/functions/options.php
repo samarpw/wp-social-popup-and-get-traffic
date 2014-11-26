@@ -27,25 +27,26 @@ class wp_social_popup_make{
 
         global $wp_social_pupup_header_plugins;
         return array( 'id'        =>'wp_social_popup_id',
-                 'id_menu'        =>'wp_social_popup',
-                 'name'           =>'WP Social Popup and Get Traffic',
-                 'name_long'      =>'WP Social Popup and Get Traffic',
-                 'name_option'    =>'wp_social_popup',
-                 'name_plugin_url'=>'wp-social-popup-and-get-traffic',
-                 'descripcion'    =>'Show content for likes/tweets/+1s',
-                 'version'        =>'2.4.1',
-                 'url'            =>'',
-                 'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
-                  // or image .jpg,png | use class 'text-long' in case of name long
-                 'logo_text'      =>'', // alt of image
-                 'slogan'         =>'', // powered by <a href="">iLenTheme</a>
-                 'url_framework'  =>plugins_url()."/wp-social-popup-and-get-traffic/assets/ilenframework",
-                 'theme_imagen'   =>plugins_url()."/wp-social-popup-and-get-traffic/assets/images",
-                 'twitter'        => 'https://twitter.com/intent/tweet?text=View this awesome plugin WP;url=http://bit.ly/1sJi6U2&amp;via=iLenElFuerte',
-                 'wp_review'      => 'https://wordpress.org/support/view/plugin-reviews/wp-social-popup-and-get-traffic?filter=5',
-                 'type'           =>'plugin',
-                 'method'         =>'free',
-                 'themeadmin'     =>'fresh');
+                     'id_menu'        =>'wp_social_popup',
+                     'name'           =>'WP Social Popup and Get Traffic',
+                     'name_long'      =>'WP Social Popup and Get Traffic',
+                     'name_option'    =>'wp_social_popup',
+                     'name_plugin_url'=>'wp-social-popup-and-get-traffic',
+                     'descripcion'    =>'Show content for likes/tweets/+1s',
+                     'version'        =>'2.5',
+                     'url'            =>'',
+                     'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
+                      // or image .jpg,png | use class 'text-long' in case of name long
+                     'logo_text'      =>'', // alt of image
+                     'slogan'         =>'', // powered by <a href="">iLenTheme</a>
+                     'url_framework'  =>plugins_url()."/wp-social-popup-and-get-traffic/assets/ilenframework",
+                     'theme_imagen'   =>plugins_url()."/wp-social-popup-and-get-traffic/assets/images",
+                     //'twitter'        => 'https://twitter.com/intent/tweet?text=View this awesome plugin WP;url=http://bit.ly/1sJi6U2&amp;via=iLenElFuerte',
+                     'wp_review'      => 'https://wordpress.org/support/view/plugin-reviews/wp-social-popup-and-get-traffic?filter=5',
+                     'wp_support'     => 'https://wordpress.org/support/plugin/wp-social-popup-and-get-traffic',
+                     'type'           =>'plugin',
+                     'method'         =>'free',
+                     'themeadmin'     =>'fresh');
     }
 
     function getOptionsPlugin(){

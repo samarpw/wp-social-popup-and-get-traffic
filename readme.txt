@@ -2,13 +2,13 @@
 Contributors: iLenStudio
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: 
-Tags: Facebook, google, google plus, pop-up, popup, Share, share content, sharing, sociable, sociable share, social, twitter, windows popup,social buttons, social network, social networking, Social Plugins, traffic, twitter,share for unlocker, like unlocker,like unlock,+1 unlock,tweet unlock,like for unlock,unlock,popup unlock,popup unlocker,follow for unlock,twitter unlock,google unlock,facebook unlock, traffic popup, seo popup,seo,youtube,unlock content,unlocker content
+Tags: Facebook, google, google plus, pop-up, popup, Share, share content, sharing, sociable, sociable share, social, twitter, windows popup,social buttons, social network, social networking, Social Plugins, traffic, twitter,share for unlocker, like unlocker,like unlock,+1 unlock,tweet unlock,like for unlock,unlock,popup unlock,popup unlocker,follow for unlock,twitter unlock,google unlock,facebook unlock, traffic popup, seo popup,seo,youtube,unlock content,unlocker content,rtl,plugin rtl
 Author URI: 
 Author: iLen
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 2.4
-Version: 2.4.1
+Version: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,7 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 <li>and much more...</li>
 </ul>
  
+<strong>RTL ready!</strong>
  
 == Installation ==
 
@@ -80,6 +81,9 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 2.5 =
+* Update core <code>iLenFramework 1.7.2</code>
+* RTL ready!
 = 2.4.1 =
 * Update core <code>iLenFramework 1.7</code>
 = 2.4 =
