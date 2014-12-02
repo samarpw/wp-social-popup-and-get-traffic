@@ -8,10 +8,10 @@ Author: iLen
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 2.6
-Version: 2.7
+Version: 2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
 Show content for likes/follow/+1s/youtube
 
@@ -81,6 +81,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 2.8 =
+Add button DONATE
 = 2.7 =
 * Update core <code>iLenFramework 1.7.3</code>
 = 2.6 =
