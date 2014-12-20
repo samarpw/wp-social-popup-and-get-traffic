@@ -22,16 +22,16 @@ var spu_counter ='';
 				"height": windowHeight + 30
 			});
 			jQuery("#spu-bg").css({
-				"opacity": defaults.opacity
+				"opacity": options.opacity
 			});
 			jQuery("#spu-bg").fadeIn("slow");
 			jQuery("#spu-main").fadeIn("slow");
 		}
 		
-		if (defaults.advancedClose == true) {
+		if (options.advancedClose == true) {
 			jQuery(document).keyup(function(e) {
 				if (e.keyCode == 27) {
-					spuFlush(defaults.days_no_click);
+					spuFlush(options.days_no_click);
 				}
 			});
 			var ua = navigator.userAgent,
@@ -39,16 +39,16 @@ var spu_counter ='';
 			
 			jQuery('body').on(event, function (ev) {
 				
-				spuFlush(defaults.days_no_click);
+				spuFlush(options.days_no_click);
 			});
 			jQuery('#spu-main').click(function(event) {
 				event.stopPropagation();
 			});
 		}
-		if( parseInt(defaults.s_to_close) > 0 )
+		if( parseInt(options.s_to_close) > 0 )
 		{
-			spu_count=defaults.s_to_close;
-			spu_counter = setInterval(function(){spu_timer(defaults)}, 1000);
+			spu_count=options.s_to_close;
+			spu_counter = setInterval(function(){spu_timer(options)}, 1000);
 		}
 		return true;
 	}
@@ -61,7 +61,7 @@ function thanks_msg(options){
 			jQuery('#spu-msg-cont').hide().html(options.thanks_msg).fadeIn();
 		}, 500);
 	}
-	setTimeout(function(){ spuFlush()}, 1000 * options.thanks_sec);
+	setTimeout(function(){ spuFlush(options.days_no_click)}, 1000 * options.thanks_sec);
 }
 
 

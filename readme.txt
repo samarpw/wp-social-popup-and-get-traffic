@@ -8,7 +8,7 @@ Author: iLen
 Requires at least: 3.0
 Tested up to: 4.1
 Stable tag: 2.8
-Version: 2.9
+Version: 2.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
@@ -81,6 +81,9 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 2.9.1 =
+* Fix code in JS
+It was sending bad information of the days I had to wait again receive the popup, ajax as well as in the normal way. This feature has already been corrected.
 = 2.9 =
 * Correction of code (minor changes)
 * New Organization of choices on the menu
