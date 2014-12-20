@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'2.8',
+                     'version'        =>'2.9',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -58,7 +58,10 @@ class wp_social_popup_make{
 
     global ${'tabs_plugin_' . $this->parameter['name_option']};
     ${'tabs_plugin_' . $this->parameter['name_option']} = array();
-    ${'tabs_plugin_' . $this->parameter['name_option']}['tab01']=array('id'=>'tab01','name'=>'Main Settings','icon'=>'<i class="fa fa-circle-o"></i>','width'=>'550px'); 
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab01']=array('id'=>'tab01','name'=>'Main Settings','icon'=>'<i class="fa fa-circle-o"></i>','width'=>'210px'); 
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab02']=array('id'=>'tab02','name'=>'Social Network','icon'=>'<i class="fa fa-share-alt"></i>','width'=>'210'); // ,'fix'=>1
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab03']=array('id'=>'tab03','name'=>'Advanced','icon'=>'<i class="fa fa-hand-o-up"></i>','width'=>'215'); // ,'fix'=>1
+
 
     return array('a'=>array(                'title'      => __('Main Settings',$this->parameter['name_option']),        //title section
                                             'title_large'=> __('Main Settings',$this->parameter['name_option']),//title large section
@@ -186,6 +189,7 @@ class wp_social_popup_make{
                                             'title_large'=> __('Facebook Fanpage for days',$this->parameter['name_option']),//title large section
                                             'description'=> '', //description section
                                             'icon'       => 'fa fa-circle-o',
+                                            'tab'        => 'tab02',
                                             'options'    => array(
 
                                                                     array(  'title' =>__('Enabled Button',$this->parameter['name_option']), //title section
@@ -270,6 +274,7 @@ class wp_social_popup_make{
                                             'title_large'=> __('Twitter user for days',$this->parameter['name_option']), 
                                             'description'=> '', //description section
                                             'icon'       => 'fa fa-circle-o',
+                                            'tab'        => 'tab02',
                                             'options'    => array(
 
                                                                     array(  'title' =>__('Enabled Button',$this->parameter['name_option']), //title section
@@ -355,6 +360,7 @@ class wp_social_popup_make{
                                             'title_large'=> __('Google+ user for days',$this->parameter['name_option']), 
                                             'description'=> '', //description section
                                             'icon'       => 'fa fa-circle-o',
+                                            'tab'        => 'tab02',
                                             'options'    => array(
 
                                                                     array(  'title' =>__('Enabled Button',$this->parameter['name_option']), //title section
@@ -478,6 +484,7 @@ class wp_social_popup_make{
                                             'title_large'=> __('Other Options',$this->parameter['name_option']), 
                                             'description'=> '', //description section
                                             'icon'       => 'fa fa-circle-o',
+                                            'tab'        => 'tab03',
                                             'options'    => array(
 
                                                                     array(  'title' =>__('Opacity:',$this->parameter['name_option']),  
