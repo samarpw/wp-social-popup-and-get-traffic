@@ -47,7 +47,8 @@ class wp_social_popup_make{
                      'link_donate'    => 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU',
                      'type'           =>'plugin',
                      'method'         =>'free',
-                     'themeadmin'     =>'fresh');
+                     'themeadmin'     =>'fresh',
+                     'scripts_admin'  =>array( 'page'        => array('wp_social_popup' => array('date','jquery_ui_reset')), ));
     }
 
     function getOptionsPlugin(){
@@ -58,9 +59,9 @@ class wp_social_popup_make{
 
     global ${'tabs_plugin_' . $this->parameter['name_option']};
     ${'tabs_plugin_' . $this->parameter['name_option']} = array();
-    ${'tabs_plugin_' . $this->parameter['name_option']}['tab01']=array('id'=>'tab01','name'=>'Main Settings','icon'=>'<i class="fa fa-circle-o"></i>','width'=>'210px'); 
-    ${'tabs_plugin_' . $this->parameter['name_option']}['tab02']=array('id'=>'tab02','name'=>'Social Network','icon'=>'<i class="fa fa-share-alt"></i>','width'=>'210'); // ,'fix'=>1
-    ${'tabs_plugin_' . $this->parameter['name_option']}['tab03']=array('id'=>'tab03','name'=>'Advanced','icon'=>'<i class="fa fa-hand-o-up"></i>','width'=>'215'); // ,'fix'=>1
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab01']=array('id'=>'tab01','name'=>'Main Settings','icon'=>'<i class="fa fa-circle-o"></i>','width'=>'200'); 
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab02']=array('id'=>'tab02','name'=>'Social Network','icon'=>'<i class="fa fa-share-alt"></i>','width'=>'200'); 
+    ${'tabs_plugin_' . $this->parameter['name_option']}['tab03']=array('id'=>'tab03','name'=>'Advanced','icon'=>'<i class="fa fa-hand-o-up"></i>','width'=>'200'); 
 
 
     return array('a'=>array(                'title'      => __('Main Settings',$this->parameter['name_option']),        //title section
@@ -113,6 +114,18 @@ class wp_social_popup_make{
                                                                             'name'  =>$this->parameter['name_option'].'_closed_advanced_keys',  
                                                                             'class' =>'', //class
                                                                             'row'   =>array('a','b')),
+    
+
+                                                                    array(  'title' =>__('Campaign type:',$this->parameter['name_option']),
+                                                                            'help'  =>__('<code>Fixed date:</code> To date the popup is displayed, the cache also died on this date plugin which allows you to manage time well. <br />
+                                                                                          <code>Days:</code> No termination date, whenever the user clicks on a social button does not return you receive the popup to the days specified for that user.',$this->parameter['name_option']),
+                                                                            'type'  =>'select',
+                                                                            'value' =>2,
+                                                                            'items' =>array(2=>'Days',1=>'Fixed date'),
+                                                                            'id'    =>$this->parameter['name_option'].'_'.'type_campaign',
+                                                                            'name'  =>$this->parameter['name_option'].'_'.'type_campaign',
+                                                                            'class' =>'',
+                                                                            'row'   =>array('a','b')),
 
 
                                                                     array(  'title' =>__('Days until popup shows again?:',$this->parameter['name_option']), //title section
@@ -121,7 +134,19 @@ class wp_social_popup_make{
                                                                             'value' =>'100', //value default
                                                                             'id'    =>$this->parameter['name_option'].'_until_popup', 
                                                                             'name'  =>$this->parameter['name_option'].'_until_popup',  
-                                                                            'class' =>'', //class
+                                                                            'class' =>'class_input_specials class_input_days', //class
+                                                                            'style' =>'display:none;',
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('Date until:',$this->parameter['name_option']), //title section
+                                                                            'help'  =>"Date end of season and disable popup",
+                                                                            'type'  =>'date',
+                                                                            'value' =>date("Y-m-d"), //value default
+                                                                            'id'    =>$this->parameter['name_option'].'_'.'date_end',
+                                                                            'name'  =>$this->parameter['name_option'].'_'.'date_end',
+                                                                            'opts'  =>',minDate: 1',
+                                                                            'class' =>'class_input_specials class_input_until_date', //class
+                                                                            'style' =>'display:none;',
                                                                             'row'   =>array('a','b')),
 
                                                                     array(  'title' =>__('Seconds for popup to appear ?:',$this->parameter['name_option']), //title section

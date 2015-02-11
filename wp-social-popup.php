@@ -8,7 +8,10 @@ Author: iLen
 Author URI: http://es.ilentheme.com
 */
 if ( !class_exists('wp_social_popup') ) {
-require_once 'assets/functions/options.php';
+
+require_once 'assets/ilenframework/assets/lib/utils.php'; // get utils
+require_once 'assets/functions/options.php'; // get options plugins
+
 class wp_social_popup extends wp_social_popup_make{
 
 	function __construct(){
@@ -22,10 +25,14 @@ class wp_social_popup extends wp_social_popup_make{
         }elseif( ! is_admin() ) {
 
         	global $opt_wp_social_popup, $print_script;
-            $opt_wp_social_popup = get_option( $this->parameter['name_option']."_options" ) ;
+
+            $opt_wp_social_popup = get_option( $this->parameter['name_option']."_options" );
+
+            if( ! $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ) return false;
+            if( ! self::validate_show_plugin_for_range_date() ) return false;
 
         	// ajax nonce for count visits in cache
-		    if(  defined( 'WP_CACHE' ) && WP_CACHE ){
+		    if(  defined( 'WP_CACHE' ) && WP_CACHE && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
 
 		      self::add_actions_wsp();		    	
 		      add_action( 'wp_enqueue_scripts',  array( &$this, 'wp_social_popup_cache_enqueue') );
@@ -63,53 +70,54 @@ class wp_social_popup extends wp_social_popup_make{
 
 
       wp_enqueue_script( 'wp-social-popup-cache', plugin_dir_url( __FILE__ ) . 'assets/js/spu_ajax.js' , array( 'jquery' ), $this->parameter['version'] , true );
-      wp_localize_script( 'wp-social-popup-cache', 'wp_popup_cache_var', array( 'admin_ajax_url' => admin_url( 'admin-ajax.php' ), 
-      																			'enable' =>  isset($opt_wp_social_popup[$this->parameter['name_option'].'_enabled'])?$opt_wp_social_popup[$this->parameter['name_option'].'_enabled']:'', 
-      																			'show_close_button' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button']:'',
-      																			'closed_advanced_keys' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys'])?$opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys']:'',
-      																			'until_popup' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_until_popup'])?$opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']:'',
-      																			'seconds_appear' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear'])?$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear']:'',
-      																			'seconds_close' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close'])?$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']:'',
-      																			'thanks_message' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message']:'',
-      																			'title_message' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_title_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_title_message']:'',
-      																			'content_message' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_content_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_content_message']:'',
-      																			'thanks_message_seconds' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds'])?$opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds']:'',
-
-      																			'button_fb' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_fb'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_fb']:'',
-      																			'facebook_url_default' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_default']:'',
-      																			'facebook_url_tuesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_tuesday']:'',
-      																			'facebook_url_wednesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_wednesday']:'',
-      																			'facebook_url_thursday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_thursday']:'',
-      																			'facebook_url_friday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday']:'',
-      																			'facebook_url_saturday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday']:'',
-      																			'facebook_url_sunday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday']:'',
-
-      																			'button_tw' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_tw'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_tw']:'',
-      																			'twitter_url_default' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default']:'',
-      																			'twitter_url_tuesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_tuesday']:'',
-      																			'twitter_url_wednesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_wednesday']:'',
-      																			'twitter_url_thursday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_thursday']:'',
-      																			'twitter_url_friday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_friday']:'',
-      																			'twitter_url_saturday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_saturday']:'',
-      																			'twitter_url_sunday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_sunday']:'',
-
-
-      																			'button_go' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_go'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_go']:'',
-      																			'google_url_default' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_default']:'',
-      																			'google_url_tuesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_tuesday']:'',
-      																			'google_url_wednesday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_wednesday']:'',
-      																			'google_url_thursday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_thursday']:'',
-      																			'google_url_friday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_friday']:'',
-      																			'google_url_saturday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_saturday']:'',
-      																			'google_url_sunday' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_sunday']:'',
-      																			'type_button_gplus' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_button_gplus'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_button_gplus']:'',
-      																			'button_youtube_suscribe' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_youtube_suscribe'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_youtube_suscribe']:'',
-      																			
-      																			'opacity' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_opacity'])?$opt_wp_social_popup[$this->parameter['name_option'].'_opacity']:'',
-      																			'enabled_mobiles' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles'])?$opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles']:'',
-      																			'show_in' =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_in'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_in']:'',
-      																			'type_page_current' => self::TypePost(),
-      																			
+      wp_localize_script( 'wp-social-popup-cache', 'wp_popup_cache_var', array(   'admin_ajax_url' => admin_url( 'admin-ajax.php' ), 
+                                                                                  'enable'                                                                                   =>  isset($opt_wp_social_popup[$this->parameter['name_option'].'_enabled'])?$opt_wp_social_popup[$this->parameter['name_option'].'_enabled']:'', 
+                                                                                  'show_close_button'                                                                        =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button']:'',
+                                                                                  'closed_advanced_keys'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys'])?$opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys']:'',
+                                                                                  'until_popup'                                                                              =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_until_popup'])?$opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']:'',
+                                                                                  'seconds_appear'                                                                           =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear'])?$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear']:'',
+                                                                                  'seconds_close'                                                                            =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close'])?$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']:'',
+                                                                                  'thanks_message'                                                                           =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message']:'',
+                                                                                  'title_message'                                                                            =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_title_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_title_message']:'',
+                                                                                  'content_message'                                                                          =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_content_message'])?$opt_wp_social_popup[$this->parameter['name_option'].'_content_message']:'',
+                                                                                  'thanks_message_seconds'                                                                   =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds'])?$opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds']:'',
+                                                                                  
+                                                                                  'button_fb'                                                                                =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_fb'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_fb']:'',
+                                                                                  'facebook_url_default'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_default']:'',
+                                                                                  'facebook_url_tuesday'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_tuesday']:'',
+                                                                                  'facebook_url_wednesday'                                                                   =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_wednesday']:'',
+                                                                                  'facebook_url_thursday'                                                                    =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_thursday']:'',
+                                                                                  'facebook_url_friday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday']:'',
+                                                                                  'facebook_url_saturday'                                                                    =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday']:'',
+                                                                                  'facebook_url_sunday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday']:'',
+                                                                                  
+                                                                                  'button_tw'                                                                                =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_tw'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_tw']:'',
+                                                                                  'twitter_url_default'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default']:'',
+                                                                                  'twitter_url_tuesday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_tuesday']:'',
+                                                                                  'twitter_url_wednesday'                                                                    =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_wednesday']:'',
+                                                                                  'twitter_url_thursday'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_thursday']:'',
+                                                                                  'twitter_url_friday'                                                                       =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_friday']:'',
+                                                                                  'twitter_url_saturday'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_saturday']:'',
+                                                                                  'twitter_url_sunday'                                                                       =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_sunday']:'',
+                                                                                  
+                                                                                  
+                                                                                  'button_go'                                                                                =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_go'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_go']:'',
+                                                                                  'google_url_default'                                                                       =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_default']:'',
+                                                                                  'google_url_tuesday'                                                                       =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_tuesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_tuesday']:'',
+                                                                                  'google_url_wednesday'                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_wednesday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_wednesday']:'',
+                                                                                  'google_url_thursday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_thursday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_thursday']:'',
+                                                                                  'google_url_friday'                                                                        =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_friday']:'',
+                                                                                  'google_url_saturday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_saturday']:'',
+                                                                                  'google_url_sunday'                                                                        =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_google_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_google_url_sunday']:'',
+                                                                                  'type_button_gplus'                                                                        =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_button_gplus'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_button_gplus']:'',
+                                                                                  'button_youtube_suscribe'                                                                  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_youtube_suscribe'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_youtube_suscribe']:'',
+                                                                                  
+                                                                                  'opacity'                                                                                  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_opacity'])?$opt_wp_social_popup[$this->parameter['name_option'].'_opacity']:'',
+                                                                                  'enabled_mobiles'                                                                          =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles'])?$opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles']:'',
+                                                                                  'show_in'                                                                                  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_in'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_in']:'',
+                                                                                  'type_page_current'                                                                        => self::TypePost(),
+                                                                                  'type_campaign'                                                                            =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:'',
+      																			  'date_end'                                                                                 =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:'',
       																		) );
 
 
@@ -230,6 +238,8 @@ class wp_social_popup extends wp_social_popup_make{
 					opacity: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_opacity']; ?>",
 					s_to_close: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']; ?>",
 					days_no_click: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']; ?>",
+                    until_date: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_date_end']; ?>",
+                    type_campaign: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']; ?>",
 					segundos : "<?php echo 'seconds'; ?>",
 					esperar : "<?php echo 'Wait'; ?>",
 					thanks_msg : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'];  ?>",
@@ -396,6 +406,35 @@ class wp_social_popup extends wp_social_popup_make{
 	    add_action('template_redirect', array(&$this,'print_scripts'), 12 );
 		
 	}
+
+
+    function validate_show_plugin_for_range_date(){
+
+        global $opt_wp_social_popup,$if_utils;
+        
+        $diff = null;
+        if( $opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'] == 1 ){ // if limit date
+
+            $date_now = date("Y-m-d");
+            $date_until = $opt_wp_social_popup[$this->parameter['name_option'].'_date_end'];
+
+            $diff = $if_utils->IF_dateDifference($date_now,$date_until);
+
+            
+
+        }
+
+        if( $diff && $diff <= 0 ){
+
+            return false;
+
+        }else{
+
+            return true;
+
+        }
+
+    }
 
 
 

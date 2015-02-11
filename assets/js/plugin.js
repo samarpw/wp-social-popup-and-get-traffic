@@ -43,6 +43,16 @@ jQuery(document).ready(function( $ ){
         }
     });
 
+    $('#wp_social_popup_type_campaign').change(function() {
+        if($(this).val()==1) {
+            $(".class_input_until_date").css("display","block");
+            $(".class_input_days").css("display","none");
+        }else if($(this).val()==2  ){
+            $(".class_input_days").css("display","block");
+            $(".class_input_until_date").css("display","none");
+        }
+    });
+
 
 
 // validate init options
@@ -83,6 +93,15 @@ if($('#wp_social_popup_button_go').is(":checked")) {
     });
     $('#wp_social_popup_button_go').parent().parent().parent().removeClass("active_go");
 }
+
+if($('#wp_social_popup_type_campaign').val() == 1 ) {
+    $(".class_input_until_date").css("display","block");
+    $(".class_input_days").css("display","none");
+}else{
+    $(".class_input_days").css("display","block");
+    $(".class_input_until_date").css("display","none");
+}
+ 
 
 });
 

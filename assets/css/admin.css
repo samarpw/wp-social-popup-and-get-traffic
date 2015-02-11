@@ -64,4 +64,12 @@
 .ilenplugin-wp_social_popup .active_go:before{
     top: 40px;
     color: #fff;
-{
+}
+
+.class_input_specials{
+    background: #F9F9F9;
+}
+.class_input_days,
+.class_input_until_date{
+    display: none;
+}

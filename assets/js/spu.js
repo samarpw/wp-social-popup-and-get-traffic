@@ -101,10 +101,39 @@ function closeGoogle(a){
 
 function spuFlush( days ) {
 	days = typeof days !== 'undefined' ? days : 99;
+
+	if( !window.options.type_campaign || window.options.type_campaign == 2 ){
+
+		days = days;
+
+	}else if( window.options.type_campaign ==1 ){
+
+		var date_plugin       = window.options.until_date;
+		var date_plugin_array = date_plugin.split('-');
+		var until_date        = date_plugin_array[0]+"/"+date_plugin_array[1]+"/"+date_plugin_array[2];
+		//--------------------------------
+		var d                 = new Date();
+		var curr_date         = d.getDate();
+		var curr_month        = d.getMonth() + 1; //Months are zero based
+		var curr_year         = d.getFullYear();
+		//---------------------------------
+		var now_date          = curr_year+"/"+ gtp_padLeft(curr_month,2,"0") +"/"+curr_date;
+
+		var day_diff = gtp_mydiff(now_date,until_date,'days');
+		if( day_diff == NaN || day_diff == undefined ){
+			days = 1;	
+		}else{
+			days = day_diff;	
+		}
+		
+
+	}
+
 	createCookie('spushow', 'true', days);
 	
 	jQuery("#spu-bg").fadeOut("slow");
 	jQuery("#spu-main").fadeOut("slow");
+
 }
 
 function createCookie(name, value, days) {
@@ -137,4 +166,33 @@ function spu_timer(defaults)
   }
 
  jQuery("#spu-timer").html(defaults.esperar+" "+spu_count + " " + defaults.segundos);
+}
+
+
+
+// link: http://stackoverflow.com/questions/542938/how-do-i-get-the-number-of-days-between-two-dates-in-javascript#comment12872595_544429
+function gtp_mydiff(date1,date2,interval) {
+    var second=1000, minute=second*60, hour=minute*60, day=hour*24, week=day*7;
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    var timediff = date2 - date1;
+    if (isNaN(timediff)) return NaN;
+    switch (interval) {
+        case "years": return date2.getFullYear() - date1.getFullYear();
+        case "months": return (
+            ( date2.getFullYear() * 12 + date2.getMonth() )
+            -
+            ( date1.getFullYear() * 12 + date1.getMonth() )
+        );
+        case "weeks"  : return Math.floor(timediff / week);
+        case "days"   : return Math.floor(timediff / day); 
+        case "hours"  : return Math.floor(timediff / hour); 
+        case "minutes": return Math.floor(timediff / minute);
+        case "seconds": return Math.floor(timediff / second);
+        default: return undefined;
+    }
+}
+
+function gtp_padLeft(nr, n, str){
+    return Array(n-String(nr).length+1).join(str||'0')+nr;
 }
