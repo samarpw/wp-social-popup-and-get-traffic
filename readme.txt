@@ -88,7 +88,6 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 To date the popup is displayed, the cache also died on this date plugin which allows you to manage time well.
 * Compatible with the plugin SUPER CACHE
 * Improvements minimum code
-* 
 = 2.9.1 =
 * Fix code in JS
 It was sending bad information of the days I had to wait again receive the popup, ajax as well as in the normal way. This feature has already been corrected.
