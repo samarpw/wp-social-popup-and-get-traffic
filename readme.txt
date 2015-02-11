@@ -7,8 +7,8 @@ Author URI:
 Author: iLen
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 3.0
-Version: 3.0
+Stable tag: 3.1
+Version: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
@@ -81,6 +81,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 3.1 =
+* Update core iLenFramework 2.0 (fix code)
 = 3.0 =
 * Update core iLenFramework 2.0
 * Optimization in the admin script

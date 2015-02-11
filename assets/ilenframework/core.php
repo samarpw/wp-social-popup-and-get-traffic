@@ -687,7 +687,7 @@ function ilentheme_options_wrap_for_plugin_tabs(){  ?>
 				<a href="#" class="ibtn btnblack left btn_save"><span><i class="fa fa-refresh"></i></span><?php _e('Save Changes',$this->parameter['name_option']) ?></a>
 				<a href="#" class="ibtn btnred left btn_reset" data-me="<?php _e('Want to update all the default values​​ &#63;',$this->parameter['name_option']) ?>"><span><i class="fa fa-repeat"></i></span><?php _e('Reset section',$this->parameter['name_option']) ?></a>
 				<?php if( isset($this->parameter['link_donate']) && $this->parameter['link_donate'] ): ?>
-				<a class="ibtn btngreen right btn_donate grow-btn" href="<?php echo $this->parameter['link_donate']; ?>" target="_blank" ><span style="width: 55px;"><i  class="fa fa-cc-paypal" style="font-size: 23px;margin-top: 6px;margin-left: 13px;" ></i></span><?php _e('Donate',$this->parameter['name_option']) ?></a>
+				<a class="right btn_donate" href="<?php echo $this->parameter['link_donate']; ?>" target="_blank" ><?php _e('Donate',$this->parameter['name_option']) ?></a>
 				<?php endif; ?>
 				<?php endif; ?>
 			</footer>
@@ -2901,6 +2901,8 @@ function save_options(){
 
 	function save_options_for_tabs(){
 
+		global $if_utils;
+
 		//code save options the theme
 		if( isset($_POST) && ( isset($_POST['save_options']) || isset($_POST['reset_options'] ) ) && $_POST["name_options"] == $this->parameter["name_option"] ){
  
@@ -2935,7 +2937,7 @@ function save_options(){
 		
 		if( is_array($options_update) ){
 
-			$options = IF_get_option( $this->parameter['name_option'] );
+			$options = $if_utils->IF_get_option( $this->parameter['name_option'] );
 			$options_current = array();
 			
 			if( isset($options) && is_object($options) ){
