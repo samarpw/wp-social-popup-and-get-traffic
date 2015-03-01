@@ -16,6 +16,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Show content for likes/follow/+1s/youtube
 
 == Description ==
+<blockquote>
+  <p>Support for this plugin will only be served <a href="http://support.ilentheme.com" target="_blank">HERE</a></p>
+</blockquote>
 <h3>Increase one or multiple social accounts</h3>
 With this plugin you can increase your social networks, a popup which will have to give in one of the social buttons so you can view the contents of the page will appear. 
 You can also put a Facebook Fanpage, Twitter user, Google+, Youtube user for each day of the week, so you can continually increase multiple accounts.
