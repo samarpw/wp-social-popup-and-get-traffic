@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'3.2',
+                     'version'        =>'3.3',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -43,7 +43,7 @@ class wp_social_popup_make{
                      'theme_imagen'   =>plugins_url()."/wp-social-popup-and-get-traffic/assets/images",
                      //'twitter'        => 'https://twitter.com/intent/tweet?text=View this awesome plugin WP;url=http://bit.ly/1sJi6U2&amp;via=iLenElFuerte',
                      'wp_review'      => 'https://wordpress.org/support/view/plugin-reviews/wp-social-popup-and-get-traffic?filter=5',
-                     'wp_support'     => 'https://wordpress.org/support/plugin/wp-social-popup-and-get-traffic',
+                     'wp_support'     => 'http://support.ilentheme.com/forums/forum/plugins/wp-social-popup-and-get-traffic/',
                      'link_donate'    => 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU',
                      'type'           =>'plugin',
                      'method'         =>'free',
