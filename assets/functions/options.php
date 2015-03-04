@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'3.3',
+                     'version'        =>'3.4',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -289,6 +289,41 @@ class wp_social_popup_make{
                                                                             'value' =>'', //value default
                                                                             'id'    =>$this->parameter['name_option'].'_facebook_url_sunday', 
                                                                             'name'  =>$this->parameter['name_option'].'_facebook_url_sunday',  
+                                                                            'class' =>'', //class
+                                                                            
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('Extras LIKE',$this->parameter['name_option']), //title section
+                                                                            'help'  =>"If your site already received the LIKE can put other pages or news link for people of alternative LIKE",
+                                                                            'type'  =>'divide',
+                                                                            'value' =>'', //value default
+                                                                            'class' =>'', //class
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('Facebook alternative 1:',$this->parameter['name_option']), //title section
+                                                                            'help'  =>"",
+                                                                            'type'  =>'text',
+                                                                            'value' =>'', //value default
+                                                                            'id'    =>$this->parameter['name_option'].'_facebook_alt_1', 
+                                                                            'name'  =>$this->parameter['name_option'].'_facebook_alt_1',  
+                                                                            'class' =>'', //class
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('Facebook alternative 2:',$this->parameter['name_option']), //title section
+                                                                            'help'  =>"",
+                                                                            'type'  =>'text',
+                                                                            'value' =>'', //value default
+                                                                            'id'    =>$this->parameter['name_option'].'_facebook_alt_2', 
+                                                                            'name'  =>$this->parameter['name_option'].'_facebook_alt_2',  
+                                                                            'class' =>'', //class
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('Facebook alternative 3:',$this->parameter['name_option']), //title section
+                                                                            'help'  =>"",
+                                                                            'type'  =>'text',
+                                                                            'value' =>'', //value default
+                                                                            'id'    =>$this->parameter['name_option'].'_facebook_alt_3', 
+                                                                            'name'  =>$this->parameter['name_option'].'_facebook_alt_3',  
                                                                             'class' =>'', //class
                                                                             'after'=>'</div>',
                                                                             'row'   =>array('a','b')),

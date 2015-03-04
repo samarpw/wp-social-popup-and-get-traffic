@@ -318,6 +318,31 @@ jQuery(document).ready(function($){
 				button_facebook[6] = wp_popup_cache_var.facebook_url_saturday;
 				button_facebook[0] = wp_popup_cache_var.facebook_url_sunday;
 
+				var fb_alt_1 = "";
+				var fb_alt_2 = "";
+				var fb_alt_3 = "";
+
+				var fb_alt_text_1 = "";
+				var fb_alt_text_2 = "";
+				var fb_alt_text_3 = "";
+
+				fb_alt_1 = wp_popup_cache_var.facebook_alt_1;
+				fb_alt_2 = wp_popup_cache_var.facebook_alt_2;
+				fb_alt_3 = wp_popup_cache_var.facebook_alt_3;
+				if( fb_alt_1 || fb_alt_2 || fb_alt_3 ){
+					if( fb_alt_1 ){
+						fb_alt_text_1 = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' +wp_popup_cache_var.facebook_alt_1+ '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+					}
+					if( fb_alt_2 ){
+						fb_alt_text_2 = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' +wp_popup_cache_var.facebook_alt_2+ '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';	
+					}
+					if( fb_alt_3 ){
+						fb_alt_text_3 = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' +wp_popup_cache_var.facebook_alt_3+ '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';		
+					}
+					
+				}
+				
+
 
 				if( wp_popup_cache_var.button_youtube_suscribe ){
 
@@ -382,7 +407,9 @@ jQuery(document).ready(function($){
 						html_pure +='<div id="spu-msg">';
 						html_pure +=wp_popup_cache_var.content_message;
 						html_pure +='<br /><br />';
-						html_pure +=html_youtube+' '+html_twitter+' '+html_facebook+' '+html_google;
+						html_pure +='<div>'+html_facebook+'</div>';
+						html_pure +='<div>'+fb_alt_text_1+' '+fb_alt_text_2+' '+fb_alt_text_3+'</div>';
+						html_pure +=html_youtube+' '+html_twitter+' '+html_google;
 						html_pure +='</div>';
 						html_pure +='<div class="step-clear"></div>';
 					html_pure +='</div>';

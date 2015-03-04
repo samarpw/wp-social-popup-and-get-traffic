@@ -84,6 +84,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 3.4 =
+* Add alternative facebook link
 = 3.3 =
 * Update link for support
 = 3.2 =

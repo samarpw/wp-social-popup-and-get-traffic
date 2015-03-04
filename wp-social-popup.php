@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 3.3
+Version: 3.4
 Author: iLen
 Author URI: http://es.ilentheme.com
 */
@@ -90,6 +90,9 @@ class wp_social_popup extends wp_social_popup_make{
                                                                                   'facebook_url_friday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_friday']:'',
                                                                                   'facebook_url_saturday'                                                                    =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_saturday']:'',
                                                                                   'facebook_url_sunday'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_url_sunday']:'',
+                                                                                  'facebook_alt_1'                                                                           =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_1'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_1']:'',
+                                                                                  'facebook_alt_2'                                                                           =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_2'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_2']:'',
+                                                                                  'facebook_alt_3'                                                                           =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_3'])?$opt_wp_social_popup[$this->parameter['name_option'].'_facebook_alt_3']:'',
                                                                                   
                                                                                   'button_tw'                                                                                =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_button_tw'])?$opt_wp_social_popup[$this->parameter['name_option'].'_button_tw']:'',
                                                                                   'twitter_url_default'                                                                      =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default'])?$opt_wp_social_popup[$this->parameter['name_option'].'_twitter_url_default']:'',
@@ -117,7 +120,7 @@ class wp_social_popup extends wp_social_popup_make{
                                                                                   'show_in'                                                                                  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_in'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_in']:'',
                                                                                   'type_page_current'                                                                        => self::TypePost(),
                                                                                   'type_campaign'                                                                            =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:'',
-      																			  'date_end'                                                                                 =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:'',
+      																			  'date_end'                                                                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:'',
       																		) );
 
 
@@ -320,6 +323,25 @@ class wp_social_popup extends wp_social_popup_make{
 	  		else
 	  			$socials["facebook"] = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $social_button_set . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>'; 
 
+        $alt_fb1 = isset($opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_1"])?$opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_1"]:"";
+        $alt_fb2 = isset($opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_2"])?$opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_2"]:"";
+        $alt_fb3 = isset($opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_3"])?$opt_wp_social_popup[$this->parameter['name_option']."_facebook_alt_3"]:"";
+        $all_alt_like = "";
+        if( $alt_fb1 || $alt_fb2 || $alt_fb3 ){
+            
+            if( $alt_fb1 ){
+                $alt_fb1_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb1 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+            }
+            if( $alt_fb2 ){
+                $alt_fb2_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb2 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+            }
+            if( $alt_fb3 ){
+                $alt_fb3_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb3 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+            }
+
+            $all_alt_like = $alt_fb1_text.$alt_fb2_text.$alt_fb3_text;
+        }
+
 		echo '<div id="spu-bg"></div>
 				<div id="spu-main">';
 				echo $opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button'] ? '<a href="#" onClick="spuFlush('. $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup'] .');" id="spu-close">✕</a>' : '';
@@ -329,7 +351,9 @@ class wp_social_popup extends wp_social_popup_make{
 						     <div id='spu-msg'>
 						     ".$opt_wp_social_popup[$this->parameter['name_option'].'_content_message']."
 						     <br /><br />
-						     {$socials["youtube"]} {$socials["twitter"]} {$socials["facebook"]} {$socials["google"]}
+                             <div>{$socials["facebook"]}</div>
+                             <div>$all_alt_like</div>
+						     {$socials["youtube"]} {$socials["twitter"]} {$socials["google"]}
 						     </div>
 						    <div class='step-clear'></div>
 					  </div>";
