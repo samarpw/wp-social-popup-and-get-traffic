@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 3.5
+Version: 3.6
 Author: iLen
 Author URI: http://es.ilentheme.com
 */
@@ -241,8 +241,8 @@ class wp_social_popup extends wp_social_popup_make{
 					opacity: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_opacity']; ?>",
 					s_to_close: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']; ?>",
 					days_no_click: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']; ?>",
-                    until_date: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_date_end']; ?>",
-                    type_campaign: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']; ?>",
+					until_date: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:null; ?>",
+					type_campaign: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:2; ?>",
 					segundos : "<?php echo 'seconds'; ?>",
 					esperar : "<?php echo 'Wait'; ?>",
 					thanks_msg : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'];  ?>",
@@ -253,10 +253,23 @@ class wp_social_popup extends wp_social_popup_make{
 					);
 			});	
 		</script>
-						
 		<?php
 		}
 	}
+
+    function print_pop_fix_css_button_like(){?>
+
+        <style>
+            .fb_iframe_widget span,
+            iframe.fb_iframe_widget_lift,
+            .fb_iframe_widget iframe {
+                width:80px !important;
+                height:20px !important;
+                position:relative;
+            }
+        </style>
+
+    <?php }
 
     function ss_wp_social_popup_admin(){
         wp_enqueue_script( 'wp_social_popup_js', plugins_url('assets/js/plugin.js',__FILE__), array( 'jquery' ), '1.0', true );
@@ -427,7 +440,8 @@ class wp_social_popup extends wp_social_popup_make{
 			add_action( 'wp_footer',array(&$this,'print_pop_ajax' ) );
 		}
 		
-	    add_action('template_redirect', array(&$this,'print_scripts'), 12 );
+	   add_action('template_redirect', array(&$this,'print_scripts'), 12 );
+     add_action( 'wp_footer',array(&$this,'print_pop_fix_css_button_like' ),50 );
 		
 	}
 
@@ -437,7 +451,7 @@ class wp_social_popup extends wp_social_popup_make{
         global $opt_wp_social_popup,$if_utils;
         
         $diff = null;
-        if( $opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'] == 1 ){ // if limit date
+        if( isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']) && $opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'] == 1 ){ // if limit date
 
             $date_now = date("Y-m-d");
             $date_until = $opt_wp_social_popup[$this->parameter['name_option'].'_date_end'];
