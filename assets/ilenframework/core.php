@@ -1844,7 +1844,7 @@ jQuery(".iaccordion-header").on("click",function(){
 
 							<?php if(isset( $value['before'] )){ echo $value['before'];} ?>
 							<div class="row <?php if(isset( $value['class'] )){ echo $value['class'];} ?>" <?php if(isset( $value['style'] )){ echo $value['style'];} ?>> 
-								<div class="a"><strong><?php echo $value['title']; ?></strong><div class="help"><?php echo $value['help']; ?></div></div>
+								<div class="a  <?php if( $side_two == 'c'){ echo "a_line"; } ?>"><strong><?php echo $value['title']; ?></strong><div class="help"><?php echo $value['help']; ?></div></div>
 								<div class="<?php echo $side_two; ?> component_enhancing_css">
 
 									<?php 
@@ -1858,7 +1858,7 @@ jQuery(".iaccordion-header").on("click",function(){
 
 									  jQuery(document).ready(function(){
 									  	var editor_<?php echo $value['id'] ?> = CodeMirror.fromTextArea(document.getElementById("code_<?php echo $value['id'] ?>"), {
-									  		lineNumbers: true,
+									  		lineNumbers: <?php if( isset($value['lineNumbers']) && $value['lineNumbers'] ){ echo $value['lineNumbers']; }else{ echo "true"; } ?>,
 							    			styleActiveLine: true,
 							    			matchBrackets: true
 							    	   });
@@ -2771,10 +2771,8 @@ if( $value_stored ){
             foreach ($mb_header as $key => $value) {
 
                 $html_data = $this->create_ilenMetabox( $key , $mb_header , $mb_body,  $stored_meta );
-                $function_meta_dinamyc = create_function( '',  "echo ".var_export($html_data,TRUE).";" );
-
-				add_action('admin_head', create_function( '', "add_meta_box( '{$value['id']}', '{$value['title']}', '$function_meta_dinamyc', '$post_type' , '{$value['context']}', '{$value['priority']}' );" ), $priority );	
-
+                $function_meta_dinamyc = create_function( '',  "echo ".@var_export($html_data,TRUE).";" );
+				add_action('admin_head',  @create_function( '', "add_meta_box( '{$value['id']}', '{$value['title']}', '$function_meta_dinamyc', '$post_type' , '{$value['context']}', '{$value['priority']}' );" ), $priority );
                 
                 $priority = $priority + 1;
 
