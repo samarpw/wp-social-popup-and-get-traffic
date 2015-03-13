@@ -418,7 +418,7 @@ jQuery(document).ready(function($){
 						html_pure +='<div id="spu-msg">';
 						html_pure +=wp_popup_cache_var.content_message;
 						html_pure +='<br /><br />';
-						html_pure +='<div>'+html_facebook+'</div>';
+						html_pure +='<div class="main_like_wsp">'+html_facebook+'</div>';
 						html_pure +='<div>'+fb_alt_text_1+' '+fb_alt_text_2+' '+fb_alt_text_3+'</div>';
 						html_pure +=html_youtube+' '+html_twitter+' '+html_google;
 						html_pure +='</div>';

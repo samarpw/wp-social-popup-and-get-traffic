@@ -105,6 +105,11 @@
     font-family: arial;
     text-decoration: none!important;
 }
+.main_like_wsp{
+    background: rgb(255, 255, 215);
+    padding-top: 19px;
+    margin-bottom: 10px;
+}
 
 /* responsive */
 @media screen and (max-width: 700px) {
