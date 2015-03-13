@@ -5,12 +5,11 @@ Plugin URI:
 Tags: Facebook, google, google plus, pop-up, popup, Share, share content, sharing, sociable, sociable share, social, twitter, windows popup,social buttons, social network, social networking, Social Plugins, traffic, twitter,share for unlocker, like unlocker,like unlock,+1 unlock,tweet unlock,like for unlock,unlock,popup unlock,popup unlocker,follow for unlock,twitter unlock,google unlock,facebook unlock, traffic popup, seo popup,seo,youtube,unlock content,unlocker content,rtl,plugin rtl
 Author URI: 
 Author: iLen
-Requires at least: 3.8
+Requires at least: 3.9
 Tested up to: 4.1.1
 Stable tag: 3.9
-Version: 3.9.1
+Version: 3.9.2
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
 Show content for likes/follow/+1s/youtube
@@ -84,6 +83,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 3.9.2 =
+* Update core <code>iLenFramework 2.2</code>
 = 3.9.1 =
 * Add hightligth in main facebook button
 = 3.9 =

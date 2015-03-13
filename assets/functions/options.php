@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'3.9.1',
+                     'version'        =>'3.9.2',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -702,6 +702,5 @@ class wp_social_popup_make{
 
 }
 }
-
 
 ?>
