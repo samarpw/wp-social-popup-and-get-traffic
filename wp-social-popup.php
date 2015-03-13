@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 3.7
+Version: 3.9
 Author: iLen
 Author URI: http://es.ilentheme.com
 */
@@ -24,32 +24,32 @@ class wp_social_popup extends wp_social_popup_make{
 
         }elseif( ! is_admin() ) {
 
-        	global $opt_wp_social_popup, $print_script;
+			global $opt_wp_social_popup, $print_script;
 
-            $opt_wp_social_popup = get_option( $this->parameter['name_option']."_options" );
+			$opt_wp_social_popup = get_option( $this->parameter['name_option']."_options" );
 
-            if( ! $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ) return false;
-            if( ! self::validate_show_plugin_for_range_date() ) return false;
+			if( ! $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ) return false;
+			if( ! self::validate_show_plugin_for_range_date() ) return false;
 
-        	// ajax nonce for count visits in cache
-		    if(  defined( 'WP_CACHE' ) && WP_CACHE && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
+			// ajax nonce for count visits in cache
+			if(  defined( 'WP_CACHE' ) && WP_CACHE && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
 
-		      self::add_actions_wsp();		    	
-		      add_action( 'wp_enqueue_scripts',  array( &$this, 'wp_social_popup_cache_enqueue') );
-		      add_action( 'wp_ajax_nopriv_wp-social-popup', array( &$this, 'print_pop_ajax' ) );
-		      add_action( 'wp_ajax_wp-social-popup', array( &$this, 'print_pop_ajax' ) );
+				self::add_actions_wsp();		    	
+				add_action( 'wp_enqueue_scripts',  array( &$this, 'wp_social_popup_cache_enqueue') );
+				add_action( 'wp_ajax_nopriv_wp-social-popup', array( &$this, 'print_pop_ajax' ) );
+				add_action( 'wp_ajax_wp-social-popup', array( &$this, 'print_pop_ajax' ) );
 
-		    }elseif( $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
+			}elseif( $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
 
-            	$is_mobile = self::is_MobileOrTable();
+				$is_mobile = self::is_MobileOrTable();
 
-	            if( $is_mobile && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles'] ){
-			        self::add_actions_wsp();
-		        }elseif( !$is_mobile ){
-		        	self::add_actions_wsp();
-		        }
+				if( $is_mobile && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled_mobiles'] ){
+					self::add_actions_wsp();
+				}elseif( !$is_mobile ){
+					self::add_actions_wsp();
+				}
 
-            }
+			}
 
         }
 
@@ -120,7 +120,9 @@ class wp_social_popup extends wp_social_popup_make{
                                                                                   'show_in'                                                                                  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_show_in'])?$opt_wp_social_popup[$this->parameter['name_option'].'_show_in']:'',
                                                                                   'type_page_current'                                                                        => self::TypePost(),
                                                                                   'type_campaign'                                                                            =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:'',
-      																			  'date_end'                                                                                                                     =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:'',
+      																			  'date_end'                                                                                 =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:'',
+      																			  'only_login'                                                                               =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login'])?$opt_wp_social_popup[$this->parameter['name_option'].'_only_login']:'',
+      																			  'if_only_login'                                                                            =>is_user_logged_in()?1:0,
       																		) );
 
 
@@ -148,6 +150,8 @@ class wp_social_popup extends wp_social_popup_make{
 		
 		global $opt_wp_social_popup,$print_script;
  
+ 		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
+
 		if( defined( 'WP_CACHE' ) && WP_CACHE ){
  
 			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
@@ -227,6 +231,9 @@ class wp_social_popup extends wp_social_popup_make{
 	*/
 	function print_scripts_footer(){
 		global $opt_wp_social_popup,$print_script;
+
+		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
+
 		$credit = isset($opt_wp_social_popup[$this->parameter['name_option'].'_credits'])?$opt_wp_social_popup[$this->parameter['name_option'].'_credits']:'';
 
 		if( $print_script ){
@@ -257,7 +264,9 @@ class wp_social_popup extends wp_social_popup_make{
 		}
 	}
 
-    function print_pop_fix_css_button_like(){?>
+    function print_pop_fix_css_button_like(){
+
+    	?>
 
         <style>
             .fb_iframe_widget span,
@@ -282,6 +291,7 @@ class wp_social_popup extends wp_social_popup_make{
 	function print_pop()
 	{
 		global $opt_wp_social_popup,$print_script;
+		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
 		$credit = isset($opt_wp_social_popup[$this->parameter['name_option'].'_credits'])?$opt_wp_social_popup[$this->parameter['name_option'].'_credits']:'';
 
  		if( $print_script ){
@@ -385,6 +395,7 @@ class wp_social_popup extends wp_social_popup_make{
 	function print_pop_ajax()
 	{ 
 	   global $opt_wp_social_popup;
+
        $type_g = $opt_wp_social_popup[$this->parameter['name_option']."_type_button_gplus"] == "button"?"g-plusone":"g-plus";
        $social_button_set = $opt_wp_social_popup[$this->parameter['name_option']."_google_url_default"];
         echo ' <!-- Inserta esta etiqueta en la sección "head" o justo antes de la etiqueta "body" de cierre. -->
@@ -433,6 +444,7 @@ class wp_social_popup extends wp_social_popup_make{
 	}
 
 	function add_actions_wsp(){
+
 		if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
 			add_action( 'wp_footer', array( &$this,'print_scripts_footer'),13);
 			add_action( 'wp_footer',array(&$this,'print_pop' ),14 );	
@@ -440,8 +452,8 @@ class wp_social_popup extends wp_social_popup_make{
 			add_action( 'wp_footer',array(&$this,'print_pop_ajax' ) );
 		}
 		
-	   add_action('template_redirect', array(&$this,'print_scripts'), 12 );
-     add_action( 'wp_footer',array(&$this,'print_pop_fix_css_button_like' ),50 );
+		add_action('template_redirect', array(&$this,'print_scripts'), 12 );
+		add_action( 'wp_footer',array(&$this,'print_pop_fix_css_button_like' ),50 );
 		
 	}
 

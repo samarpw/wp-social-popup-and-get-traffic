@@ -105,3 +105,15 @@
     font-family: arial;
     text-decoration: none!important;
 }
+
+/* responsive */
+@media screen and (max-width: 700px) {
+    #spu-main {
+        top: 14px!important;
+        left: 10px!important;
+        width: 97%!important;
+        position: absolute!important;
+        min-width: inherit!important;
+        max-width: inherit!important;
+    }
+}

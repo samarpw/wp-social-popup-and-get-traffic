@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'3.7',
+                     'version'        =>'3.9',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -625,6 +625,17 @@ class wp_social_popup_make{
                                                                             'id'    =>$this->parameter['name_option'].'_show_in', //id
                                                                             'name'  =>$this->parameter['name_option'].'_show_in', //name
                                                                             'class' =>'', //class
+                                                                            'row'   =>array('a','b')),
+                                                                    
+                                                                    array(  'title' =>__('Only login:',$this->parameter['name_option']),  
+                                                                            'help'  =>"If enabled, Only the popup is displayed to users logged",
+                                                                            'type'  =>'checkbox',
+                                                                            'value' =>'0',  
+                                                                            'value_check'=>1,
+                                                                            'id'    =>$this->parameter['name_option'].'_only_login', 
+                                                                            'name'  =>$this->parameter['name_option'].'_only_login',  
+                                                                            'class' =>'', //class
+                                                                            'after' =>'',
                                                                             'row'   =>array('a','b')),
 
 

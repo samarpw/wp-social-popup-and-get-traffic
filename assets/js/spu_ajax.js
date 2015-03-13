@@ -20,7 +20,13 @@ var isMobile = function() {
 		var defaults = { days_no_click : "10" };
 		var options = jQuery.extend(defaults, options);
 		window.options = options;
-		
+
+
+
+
+		if( window.options.only_login && window.options.if_only_login == 0 ){ return; }
+
+ 
 		var cook = readCookie('spushow');
 		var waitCook = readCookie('spuwait');
 
@@ -82,17 +88,7 @@ function thanks_msg(options){
 
 
 jQuery(document).ready(function(){
-FB.Event.subscribe('edge.create', function(href) {
-	clearInterval(spu_counter);
-	thanks_msg(window.options);
-});
-if (typeof twttr !== 'undefined') {
-	twttr.ready(function(twttr) {
-		clearInterval(spu_counter);
-		twttr.events.bind('tweet', twitterCB);
-		twttr.events.bind('follow', twitterCB);
-	});
-}
+
 });
 function twitterCB(intent_event) {
 	thanks_msg(window.options);
@@ -227,6 +223,21 @@ jQuery(document).ready(function($){
 
 	if( ! wp_popup_cache_var.enable ) return;
 	if( isMobile() && ! wp_popup_cache_var.enabled_mobiles ) return;
+	if( wp_popup_cache_var.only_login && wp_popup_cache_var.if_only_login == 0 ){ return; }
+
+
+	FB.Event.subscribe('edge.create', function(href) {
+		clearInterval(spu_counter);
+		thanks_msg(window.options);
+	});
+	if (typeof twttr !== 'undefined') {
+		twttr.ready(function(twttr) {
+			clearInterval(spu_counter);
+			twttr.events.bind('tweet', twitterCB);
+			twttr.events.bind('follow', twitterCB);
+		}); 
+	}
+
 	if( wp_popup_cache_var.type_campaign == 1 ){
 
 		var date_plugin       = wp_popup_cache_var.date_end;
