@@ -26,7 +26,7 @@ class wp_social_popup_make{
         //code 
 
         global $wp_social_pupup_header_plugins;
-        return array( 'id'        =>'wp_social_popup_id',
+        return array('id'             =>'wp_social_popup_id',
                      'id_menu'        =>'wp_social_popup',
                      'name'           =>'WP Social Popup and Get Traffic',
                      'name_long'      =>'WP Social Popup and Get Traffic',
@@ -702,5 +702,4 @@ class wp_social_popup_make{
 
 }
 }
-
 ?>

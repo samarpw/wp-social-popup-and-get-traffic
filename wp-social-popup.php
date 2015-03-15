@@ -272,7 +272,7 @@ class wp_social_popup extends wp_social_popup_make{
             .fb_iframe_widget span,
             iframe.fb_iframe_widget_lift,
             .fb_iframe_widget iframe {
-                width:80px !important;
+                /*width:80px !important;*/
                 height:20px !important;
                 position:relative;
             }

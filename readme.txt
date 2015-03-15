@@ -83,8 +83,13 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+<<<<<<< .mine
+= 3.9.2 =
+* Fixed show button facebook
+=======
 = 3.9.2 =
 * Update core <code>iLenFramework 2.2</code>
+>>>>>>> .r1113455
 = 3.9.1 =
 * Add hightligth in main facebook button
 = 3.9 =
