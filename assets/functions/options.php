@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'4.0',
+                     'version'        =>'4.1',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -658,6 +658,16 @@ class wp_social_popup_make{
                                                                             'text_button'=>'Delete Cookie',
                                                                             'id'    =>$this->parameter['name_option'].'_reset_cookie', 
                                                                             'name'  =>$this->parameter['name_option'].'_reset_cookie',  
+                                                                            'class' =>'',
+                                                                            'row'   =>array('a','b')),
+                                                                            
+                                                                    
+                                                                    array(  'title' =>__('Exclude IP:',$this->parameter['name_option']),  
+                                                                            'help'  =>"Put the IP do not want the popup appears, Place the IP to exclude separated by a comma ','",
+                                                                            'type'  =>'textarea',
+                                                                            'value' =>"xx.xxx.xx.xxx,xx.xxx.xxx.xx", // URL
+                                                                            'id'    =>$this->parameter['name_option'].'_list_white', 
+                                                                            'name'  =>$this->parameter['name_option'].'_list_white',  
                                                                             'class' =>'',
                                                                             'row'   =>array('a','b')),
 

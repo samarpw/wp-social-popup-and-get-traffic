@@ -8,7 +8,7 @@ Author: iLen
 Requires at least: 3.9
 Tested up to: 4.1
 Stable tag: 4.0
-Version: 4.0
+Version: 4.1
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.1 =
+* The option to exclude IP is added to the popup will not appear
 = 4.0 =
 * Add button like (facebook) of post current
 * Fixed error in mobile that towards the popup appear at all times

@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.0
+Version: 4.1
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -57,7 +57,18 @@ class wp_social_popup extends wp_social_popup_make{
 
 			// validate if current date is in range date
 			if( ! self::validate_show_plugin_for_range_date() ) return false;
-
+            
+            // validate if exclude IP
+            if( isset($opt_wp_social_popup[$this->parameter['name_option'].'_list_white']) && $opt_wp_social_popup[$this->parameter['name_option'].'_list_white'] ){
+                
+                $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
+                $list__while = explode(",",$opt_wp_social_popup[$this->parameter['name_option'].'_list_white']);
+                if( in_array($ip,$list__while) ){
+                    return false;
+                }
+                
+            }
+     
 			// ajax nonce for count visits in cache (IF CACHE ACTIVE)
 			if(  defined( 'WP_CACHE' ) && WP_CACHE && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
 
@@ -217,6 +228,8 @@ class wp_social_popup extends wp_social_popup_make{
             if( !isset($_COOKIE['spushow']) && !$_COOKIE['spushow'] ){
                 $print_script = true;
             }
+            
+            
             
 			if( in_array( 'everywhere', $array_show_in ) ){
                 $print_script = true;
