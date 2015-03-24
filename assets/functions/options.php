@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'3.9.3',
+                     'version'        =>'4.0',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -326,6 +326,17 @@ class wp_social_popup_make{
                                                                             'name'  =>$this->parameter['name_option'].'_facebook_alt_3',  
                                                                             'class' =>'', //class
                                                                             'after'=>'</div>',
+                                                                            'row'   =>array('a','b')),
+                                                                            
+                                                                    array(  'title' =>__('Like the post:',$this->parameter['name_option']),  
+                                                                            'help'  =>"With this option you showed also the 'like button' post, this would help the user to have an alternative to see the content if you already gave LIKE to your website.",
+                                                                            'type'  =>'checkbox',
+                                                                            'value' =>'0',  
+                                                                            'value_check'=>1,
+                                                                            'id'    =>$this->parameter['name_option'].'_like_post', 
+                                                                            'name'  =>$this->parameter['name_option'].'_like_post',  
+                                                                            'class' =>'', //class
+                                                                            'after' =>'',
                                                                             'row'   =>array('a','b')),
 
                                                 )

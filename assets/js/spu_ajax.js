@@ -48,6 +48,11 @@ var isMobile = function() {
 			});
 			jQuery("#spu-bg").fadeIn("slow");
 			jQuery("#spu-main").fadeIn("slow");
+            
+            if( isMobile() ){
+                jQuery("#spu-main").addClass("popup_mobile");    
+            }
+            
 		}
 		
 		if (options.advancedClose == true) {
@@ -336,6 +341,7 @@ jQuery(document).ready(function($){
 				var fb_alt_text_1 = "";
 				var fb_alt_text_2 = "";
 				var fb_alt_text_3 = "";
+                var fb_alt_text_4 = "";
 
 				fb_alt_1 = wp_popup_cache_var.facebook_alt_1;
 				fb_alt_2 = wp_popup_cache_var.facebook_alt_2;
@@ -352,6 +358,10 @@ jQuery(document).ready(function($){
 					}
 					
 				}
+                
+                if( wp_popup_cache_var.button_like_post ){
+                    fb_alt_text_4 = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' +wp_popup_cache_var.button_like_post_url+ '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+                }
 				
 
 
@@ -419,7 +429,7 @@ jQuery(document).ready(function($){
 						html_pure +=wp_popup_cache_var.content_message;
 						html_pure +='<br /><br />';
 						html_pure +='<div class="main_like_wsp">'+html_facebook+'</div>';
-						html_pure +='<div>'+fb_alt_text_1+' '+fb_alt_text_2+' '+fb_alt_text_3+'</div>';
+						html_pure +='<div>'+fb_alt_text_1+' '+fb_alt_text_2+' '+fb_alt_text_3+' '+fb_alt_text_4+'</div>';
 						html_pure +=html_youtube+' '+html_twitter+' '+html_google;
 						html_pure +='</div>';
 						html_pure +='<div class="step-clear"></div>';

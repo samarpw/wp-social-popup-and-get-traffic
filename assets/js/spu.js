@@ -1,5 +1,6 @@
 var spu_count = 0;
 var spu_counter ='';
+
 	function socialPopupTrafic(options) {
 		var defaults = { days_no_click : "10" };
 		var options = jQuery.extend(defaults, options);
@@ -7,8 +8,10 @@ var spu_counter ='';
 		
 		var cook = readCookie('spushow');
 		var waitCook = readCookie('spuwait');
+        
 
-		if (cook != 'true') {
+		if (cook != 'true' && cook!=true) {
+
 			var windowWidth = document.documentElement.clientWidth;
 			var windowHeight = document.documentElement.clientHeight;
 			var popupHeight = jQuery("#spu-main").height();
@@ -26,30 +29,33 @@ var spu_counter ='';
 			});
 			jQuery("#spu-bg").fadeIn("slow");
 			jQuery("#spu-main").fadeIn("slow");
+            
+            
+            if (options.advancedClose == true) {
+    			jQuery(document).keyup(function(e) {
+    				if (e.keyCode == 27) {
+    					spuFlush(options.days_no_click);
+    				}
+    			});
+    			var ua = navigator.userAgent,
+    			event = (ua.match(/iPad/i) || ua.match(/iPhone/i)) ? "touchstart" : "click";
+    			
+    			jQuery('body').on(event, function (ev) {
+    				
+    				spuFlush(options.days_no_click);
+    			});
+    			jQuery('#spu-main').click(function(event) {
+    				event.stopPropagation();
+    			});
+    		}
+    		if( parseInt(options.s_to_close) > 0 )
+    		{
+    			spu_count=options.s_to_close;
+    			spu_counter = setInterval(function(){spu_timer(options)}, 1000);
+    		}
 		}
 		
-		if (options.advancedClose == true) {
-			jQuery(document).keyup(function(e) {
-				if (e.keyCode == 27) {
-					spuFlush(options.days_no_click);
-				}
-			});
-			var ua = navigator.userAgent,
-			event = (ua.match(/iPad/i) || ua.match(/iPhone/i)) ? "touchstart" : "click";
-			
-			jQuery('body').on(event, function (ev) {
-				
-				spuFlush(options.days_no_click);
-			});
-			jQuery('#spu-main').click(function(event) {
-				event.stopPropagation();
-			});
-		}
-		if( parseInt(options.s_to_close) > 0 )
-		{
-			spu_count=options.s_to_close;
-			spu_counter = setInterval(function(){spu_timer(options)}, 1000);
-		}
+		
 		return true;
 	}
 
@@ -137,12 +143,17 @@ function spuFlush( days ) {
 }
 
 function createCookie(name, value, days) {
+  
 	if (days) {
+	 
 		var date = new Date();
 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 		var expires = "; expires=" + date.toGMTString();
 	} else var expires = "";
+    
+    var ok = name + "=" + value + expires + "; path=/";
 	document.cookie = name + "=" + value + expires + "; path=/";
+    
 }
 
 function readCookie(name) {

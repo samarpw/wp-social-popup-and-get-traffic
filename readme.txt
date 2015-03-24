@@ -1,14 +1,14 @@
 ﻿=== Plugin Name ===
 Contributors: iLenStudio
 Plugin Name: WP Social Popup and Get Traffic
-Plugin URI: 
+Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Tags: Facebook, google, google plus, pop-up, popup, Share, share content, sharing, sociable, sociable share, social, twitter, windows popup,social buttons, social network, social networking, Social Plugins, traffic, twitter,share for unlocker, like unlocker,like unlock,+1 unlock,tweet unlock,like for unlock,unlock,popup unlock,popup unlocker,follow for unlock,twitter unlock,google unlock,facebook unlock, traffic popup, seo popup,seo,youtube,unlock content,unlocker content,rtl,plugin rtl
 Author URI: 
 Author: iLen
 Requires at least: 3.9
-Tested up to: 4.1.1
-Stable tag: 3.9.3
-Version: 3.9.3
+Tested up to: 4.1
+Stable tag: 4.0
+Version: 4.0
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,11 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.0 =
+* Add button like (facebook) of post current
+* Fixed error in mobile that towards the popup appear at all times
+* Add comments in the code in the main file of the plugin for understanding
+* Improved display for cell phones, occupies the entire screen phones.
 = 3.9.3 =
 * Fixed show button facebook
 = 3.9.1 =
