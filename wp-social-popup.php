@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.1
+Version: 4.1.1
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -57,12 +57,13 @@ class wp_social_popup extends wp_social_popup_make{
 
 			// validate if current date is in range date
 			if( ! self::validate_show_plugin_for_range_date() ) return false;
-            
+
             // validate if exclude IP
             if( isset($opt_wp_social_popup[$this->parameter['name_option'].'_list_white']) && $opt_wp_social_popup[$this->parameter['name_option'].'_list_white'] ){
-                
-                $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
-                $list__while = explode(",",$opt_wp_social_popup[$this->parameter['name_option'].'_list_white']);
+
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $list__while = explode( ",",$opt_wp_social_popup[$this->parameter['name_option'].'_list_white'] );
+
                 if( in_array($ip,$list__while) ){
                     return false;
                 }
@@ -175,6 +176,8 @@ class wp_social_popup extends wp_social_popup_make{
 			'if_only_login'           =>is_user_logged_in()?1:0,
             'button_like_post'        =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_like_post'])?$opt_wp_social_popup[$this->parameter['name_option'].'_like_post']:'',
             'button_like_post_url'    =>get_permalink(),
+            'ip_machine'			  =>$_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']),
+            'exclude_ip'			  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_list_white'])?$opt_wp_social_popup[$this->parameter['name_option'].'_list_white']:'',
 		) );
 
 
@@ -225,7 +228,7 @@ class wp_social_popup extends wp_social_popup_make{
 			* set @var $print_script = true if accoding
 			*/
             
-            if( !isset($_COOKIE['spushow']) && !$_COOKIE['spushow'] ){
+            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){
                 $print_script = true;
             }
             
@@ -272,7 +275,7 @@ class wp_social_popup extends wp_social_popup_make{
 	function ss_wp_social_popup(){
 
 		// load script networking
-		wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
+		wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/sdk.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-tw', 'http://platform.twitter.com/widgets.js', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-social', plugins_url( 'assets/js/spu.js' , __FILE__ ),array('jquery'),$this->parameter['version']);
 
@@ -615,10 +618,11 @@ iframe.fb_iframe_widget_lift,
 
 		if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
 		  
-            if( !isset($_COOKIE['spushow']) && !$_COOKIE['spushow'] ){ 
+            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){ 
     			add_action( 'wp_footer', array( &$this,'print_scripts_footer'),13);
     			add_action( 'wp_footer',array(&$this,'print_pop' ),14 );
-            }	
+            }
+
 		}else{
 		  
 			add_action( 'wp_footer',array(&$this,'print_pop_ajax' ) );
