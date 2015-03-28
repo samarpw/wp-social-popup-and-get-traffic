@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.1.1
+Version: 4.1.2
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -69,7 +69,7 @@ class wp_social_popup extends wp_social_popup_make{
                 }
                 
             }
-     
+
 			// ajax nonce for count visits in cache (IF CACHE ACTIVE)
 			if(  defined( 'WP_CACHE' ) && WP_CACHE && $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ){
 
@@ -212,55 +212,50 @@ class wp_social_popup extends wp_social_popup_make{
 		global $opt_wp_social_popup,$print_script;
  
 		// validate popup only login
-		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
+		//if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
 
 		// validate if plugin cache is active
 		/*if( defined( 'WP_CACHE' ) && WP_CACHE ){
 			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
 		}else{*/
 
-			// get array when show popup
-			$array_show_in = $opt_wp_social_popup[$this->parameter['name_option'].'_show_in'];
-			$print_script = false;
+		// get array when show popup
+		$array_show_in = $opt_wp_social_popup[$this->parameter['name_option'].'_show_in'];
+		$print_script = false;
 
-			/**
-			* Validate page to show
-			* set @var $print_script = true if accoding
-			*/
-            
-            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){
-                $print_script = true;
-            }
-            
-            
-            
-			if( in_array( 'everywhere', $array_show_in ) ){
-                $print_script = true;
-			} 
+		/**
+		* Validate page to show
+		* set @var $print_script = true if accoding
+		*/
+        
+        
+		if( in_array( 'everywhere', $array_show_in ) ){
+            $print_script = true;
+		} 
 
-			if( in_array( 'home' , $array_show_in ) && $print_script == false ){
-				if( is_home() || is_front_page() ){
-					$print_script = true;
-				}
-			} 
-
-			if( in_array( 'post' , $array_show_in ) && $print_script == false ){
-				if( is_single() ){
-					$print_script = true;
-				}
+		if( in_array( 'home' , $array_show_in ) && $print_script == false ){
+			if( is_home() || is_front_page() ){
+				$print_script = true;
 			}
+		} 
 
-			if( in_array( 'page' , $array_show_in ) && $print_script == false ){
-				if( is_page() ){
-					$print_script = true;
-				}
+		if( in_array( 'post' , $array_show_in ) && $print_script == false ){
+			if( is_single() ){
+				$print_script = true;
 			}
+		}
 
-			// If $print_script is TRUE then loads script to show popup
-			if( $print_script == true ) {
-				add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
+		if( in_array( 'page' , $array_show_in ) && $print_script == false ){
+			if( is_page() ){
+				$print_script = true;
 			}
-		//}
+		}
+
+		// If $print_script is TRUE then loads script to show popup
+		if( $print_script == true ) {
+			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
+		}
+	//}
 
 	}
 
@@ -618,7 +613,7 @@ iframe.fb_iframe_widget_lift,
 
 		if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
 		  
-            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){ 
+            if( empty($_COOKIE['spushow']) && !$_COOKIE['spushow'] ){ 
     			add_action( 'wp_footer', array( &$this,'print_scripts_footer'),13);
     			add_action( 'wp_footer',array(&$this,'print_pop' ),14 );
             }
