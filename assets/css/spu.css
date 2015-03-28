@@ -124,7 +124,7 @@
 .popup_mobile #spu-title{
     font-size: 66px;
 }
-.popup_mobile #spu-msg {
+.popup_mobile #spu-msg > p {
   font-size: 55px;
   text-align: center;
   line-height: 64px;

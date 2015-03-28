@@ -276,7 +276,7 @@ jQuery(document).ready(function($){
 	// exclude ip
 	var array_exclude_ip = wp_popup_cache_var.exclude_ip;
 	var array_ips = array_exclude_ip.split(",");
-	if( wp_popup_cache_var.exclude_ip &&  in_array( wp_popup_cache_var.ip_machine, array_ips ) ){ return; }
+	if( wp_popup_cache_var.exclude_ip && in_array( wp_popup_cache_var.ip_machine, array_ips ) ){ return; }
 
 
 	FB.Event.subscribe('edge.create', function(href) {
@@ -474,7 +474,7 @@ jQuery(document).ready(function($){
 				html_pure +='<div id="spu-title">'+wp_popup_cache_var.title_message+'</div>';
 					html_pure +='<div id="spu-msg-cont">';
 						html_pure +='<div id="spu-msg">';
-						html_pure +=wp_popup_cache_var.content_message;
+						html_pure +='<p>'+wp_popup_cache_var.content_message+'</p>';
 						html_pure +='<br /><br />';
 						html_pure +='<div class="main_like_wsp">'+html_facebook+'</div>';
 						html_pure +='<div>'+fb_alt_text_1+' '+fb_alt_text_2+' '+fb_alt_text_3+' '+fb_alt_text_4+'</div>';
