@@ -276,7 +276,7 @@ jQuery(document).ready(function($){
 	// exclude ip
 	var array_exclude_ip = wp_popup_cache_var.exclude_ip;
 	var array_ips = array_exclude_ip.split(",");
-	if( wp_popup_cache_var.exclude_ip &&  ! in_array( wp_popup_cache_var.ip_machine, array_ips ) ){ return; }
+	if( wp_popup_cache_var.exclude_ip &&  in_array( wp_popup_cache_var.ip_machine, array_ips ) ){ return; }
 
 
 	FB.Event.subscribe('edge.create', function(href) {
