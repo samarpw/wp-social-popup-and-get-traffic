@@ -111,7 +111,7 @@
     margin-bottom: 10px;
 }
 .popup_mobile {
-    width: 90%;
+    width: 96%;
     top: 0!important;
     left: 0!important;
     max-width: 100%!important;
@@ -120,6 +120,15 @@
     min-width: 300px!important;
     margin: 20px!important;
   /* margin-right: 63px!important; */
+}
+.popup_mobile #spu-title{
+    font-size: 66px;
+}
+.popup_mobile #spu-msg {
+  font-size: 55px;
+  text-align: center;
+  line-height: 64px;
+  margin-top: 77px;
 }
 /* responsive */
 
