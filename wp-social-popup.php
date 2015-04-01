@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.1.7
+Version: 4.2
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -353,13 +353,13 @@ class wp_social_popup extends wp_social_popup_make{
 	   global $opt_wp_social_popup; 
        ?>
 <style>
-.fb_iframe_widget span
-/*iframe.fb_iframe_widget_lift,
-.fb_iframe_widget iframe */{
-    /*width:80px !important;*/
+/*.fb_iframe_widget span
+iframe.fb_iframe_widget_lift,
+.fb_iframe_widget iframe   {
+    width:80px !important; 
     height:20px !important;
     position:relative;
-}
+}*/
 </style>
 	<?php }
 
@@ -498,7 +498,7 @@ class wp_social_popup extends wp_social_popup_make{
 							<div id='spu-msg-cont'>
 									 <div id='spu-msg'>
 									 <p>".$opt_wp_social_popup[$this->parameter['name_option'].'_content_message']."</p>
-									 <br /><br />
+									 <br />
 															 <div class='main_like_wsp'>{$socials["facebook"]}</div>
 															 <div>$all_alt_like</div>
 									 {$socials["youtube"]} {$socials["twitter"]} {$socials["google"]}

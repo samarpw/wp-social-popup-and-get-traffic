@@ -7,8 +7,8 @@ Author URI:
 Author: iLen
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 4.1
-Version: 4.1.7
+Stable tag: 4.2
+Version: 4.2
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,9 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.3 =
+* Update core
+* Remove css devil
 = 4.1.7 =
 * Remove Css is possibly better to do
 = 4.1.6 =
