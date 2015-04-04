@@ -7,8 +7,8 @@ Author URI:
 Author: iLen
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 4.2
-Version: 4.2
+Stable tag: 4.2.1
+Version: 4.2.1
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
