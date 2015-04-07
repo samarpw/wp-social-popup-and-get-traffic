@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.2.1
+Version: 4.3
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -252,9 +252,9 @@ class wp_social_popup extends wp_social_popup_make{
 		}
 
 		// If $print_script is TRUE then loads script to show popup
-		if( $print_script == true ) {
+		//if( $print_script == true ) {
 			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
-		}
+		//}
 	//}
 
 	}
@@ -270,7 +270,7 @@ class wp_social_popup extends wp_social_popup_make{
 	function ss_wp_social_popup(){
 
 		// load script networking
-		wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/sdk.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
+		//wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#version=v2.0', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-tw', 'http://platform.twitter.com/widgets.js', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-social', plugins_url( 'assets/js/spu.js' , __FILE__ ),array('jquery'),$this->parameter['version']);
 
@@ -355,7 +355,7 @@ class wp_social_popup extends wp_social_popup_make{
 <style>
 .fb_iframe_widget span
 /*iframe.fb_iframe_widget_lift,
-.fb_iframe_widget iframe  */ {
+.fb_iframe_widget iframe */ {
     width:80px !important; 
     height:20px !important;
     position:relative;
@@ -448,12 +448,12 @@ class wp_social_popup extends wp_social_popup_make{
 			if( $opt_wp_social_popup[$this->parameter['name_option']."_button_fb"] == '1' ){
 				if( ! $social_button_set = $opt_wp_social_popup[$this->parameter['name_option']."_facebook_url_{$suf_day}"] ){
 					if( $social_button_set = $opt_wp_social_popup[$this->parameter['name_option']."_facebook_url_default"] ){
-						$socials["facebook"] = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $social_button_set . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>'; 
+						$socials["facebook"] = '<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . $social_button_set . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>'; 
 					}else{
 						$socials["facebook"] = "";
 					}
 				}else{
-					$socials["facebook"] = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $social_button_set . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>'; 
+					$socials["facebook"] = '<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . $social_button_set . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>'; 
 				}
 			}
 
@@ -468,13 +468,13 @@ class wp_social_popup extends wp_social_popup_make{
 			if( $alt_fb1 || $alt_fb2 || $alt_fb3 ){
 					
 					if( $alt_fb1 ){
-							$alt_fb1_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb1 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+							$alt_fb1_text = '<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . $alt_fb1 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
 					}
 					if( $alt_fb2 ){
-							$alt_fb2_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb2 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+							$alt_fb2_text = '<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . $alt_fb2 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
 					}
 					if( $alt_fb3 ){
-							$alt_fb3_text = '<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . $alt_fb3 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+							$alt_fb3_text = '<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . $alt_fb3 . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
 					}
 
 					$all_alt_like = $alt_fb1_text.$alt_fb2_text.$alt_fb3_text;
@@ -483,7 +483,7 @@ class wp_social_popup extends wp_social_popup_make{
             // show the LIKE post
             if( isset($opt_wp_social_popup[$this->parameter['name_option']."_button_fb"]) && $opt_wp_social_popup[$this->parameter['name_option']."_like_post"] == 1 ){
                 
-                $all_alt_like = $all_alt_like.'<div class="spu-button spu-facebook"><div id="fb-root"></div><div class="fb-like" data-href="' . get_permalink() . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
+                $all_alt_like = $all_alt_like.'<div class="spu-button spu-facebook"><div class="fb-like" data-href="' . get_permalink() . '" data-send="false" data-width="450" data-show-faces="true"data-layout="button_count"></div></div>';
                 
             }
 
@@ -491,6 +491,15 @@ class wp_social_popup extends wp_social_popup_make{
 			// Print final popup
             $class_mobile = ($this->is_mobile)?"popup_mobile":"";
 			echo '<div id="spu-bg"></div>
+                       <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.3";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, "script", "facebook-jssdk"));</script>
+                    
 					<div id="spu-main"  class="'.$class_mobile.'">';
 					echo $opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button'] ? '<a href="#" onClick="spuFlush('. $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup'] .');" id="spu-close">✕</a>' : '';
 					echo '<div id="spu-body">';
@@ -611,8 +620,9 @@ class wp_social_popup extends wp_social_popup_make{
 	function add_actions_wsp(){
 
 		if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
-		  
-            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){ 
+		
+            if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){
+      
     			add_action( 'wp_footer', array( &$this,'print_scripts_footer'),13);
     			add_action( 'wp_footer',array(&$this,'print_pop' ),14 );
             }
