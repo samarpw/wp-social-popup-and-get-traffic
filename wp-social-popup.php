@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.5
+Version: 4.6
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -253,7 +253,7 @@ class wp_social_popup extends wp_social_popup_make{
 
 		// If $print_script is TRUE then loads script to show popup
 		//if( $print_script == true ) {
-			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup') );
+			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup'), 20 );
 		//}
 	//}
 
@@ -271,8 +271,9 @@ class wp_social_popup extends wp_social_popup_make{
 
 		// load script networking
 		//wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#version=v2.0', array('jquery'),$this->parameter['version'],FALSE);
+		wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-tw', 'http://platform.twitter.com/widgets.js', array('jquery'),$this->parameter['version'],FALSE);
-		wp_enqueue_script('wsp-social', plugins_url( 'assets/js/spu.js' , __FILE__ ),array('jquery'),$this->parameter['version']);
+		wp_enqueue_script('wsp-social', plugins_url( 'assets/js/spu.js' , __FILE__ ),array('jquery'),$this->parameter['version'],TRUE);
 
 		// Load style of popup
 		wp_enqueue_style('wsp-css', plugins_url( 'assets/css/spu.css' , __FILE__ ),'all',$this->parameter['version']);
@@ -314,27 +315,27 @@ class wp_social_popup extends wp_social_popup_make{
 		*/
 		if( $print_script ){
 		?>							
-		<script type="text/javascript">
-			jQuery(document).ready(function($){
-			setTimeout( 
-			function(){				
-				socialPopupTrafic({
-					// Configure display of popup
-					advancedClose: <?php echo ($opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys']?'true':'false'); ?>,
-					opacity: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_opacity']; ?>",
-					s_to_close: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']; ?>",
-					days_no_click: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']; ?>",
-					until_date: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:null; ?>",
-					type_campaign: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:2; ?>",
-					segundos : "<?php echo 'seconds'; ?>",
-					esperar : "<?php echo 'Wait'; ?>",
-					thanks_msg : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'];  ?>",
-					thanks_sec : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds']; ?>"
-				})
-			}
-				,<?php echo (int)$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear'] * 1000 ;?>
-					);
-			});	
+<script type="text/javascript">
+jQuery(document).ready(function($){
+setTimeout( 
+	function(){				
+		socialPopupTrafic({
+		// Configure display of popup
+		advancedClose: <?php echo ($opt_wp_social_popup[$this->parameter['name_option'].'_closed_advanced_keys']?'true':'false'); ?>,
+		opacity: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_opacity']; ?>",
+		s_to_close: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_seconds_close']; ?>",
+		days_no_click: "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup']; ?>",
+		until_date: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_date_end'])?$opt_wp_social_popup[$this->parameter['name_option'].'_date_end']:null; ?>",
+		type_campaign: "<?php echo isset($opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign'])?$opt_wp_social_popup[$this->parameter['name_option'].'_type_campaign']:2; ?>",
+		segundos : "<?php echo 'seconds'; ?>",
+		esperar : "<?php echo 'Wait'; ?>",
+		thanks_msg : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message'];  ?>",
+		thanks_sec : "<?php echo $opt_wp_social_popup[$this->parameter['name_option'].'_thanks_message_seconds']; ?>"
+		})
+	}
+	,<?php echo (int)$opt_wp_social_popup[$this->parameter['name_option'].'_seconds_appear'] * 1000 ;?>
+);
+});	
 		</script>
 		<?php
 		}
@@ -490,17 +491,7 @@ iframe.fb_iframe_widget_lift,
 
 			// Print final popup
             $class_mobile = ($this->is_mobile)?"popup_mobile":"";
-			echo '<div id="spu-bg"></div>
-                       <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s); js.id = id;
-                      js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
-                      fjs.parentNode.insertBefore(js, fjs);
-                    }(document, "script", "facebook-jssdk"));</script>
-                    
-					<div id="spu-main"  class="'.$class_mobile.'">';
+			echo '<div id="spu-bg"></div><div id="spu-main"  class="'.$class_mobile.'">';
 					echo $opt_wp_social_popup[$this->parameter['name_option'].'_show_close_button'] ? '<a href="#" onClick="spuFlush('. $opt_wp_social_popup[$this->parameter['name_option'].'_until_popup'] .');" id="spu-close">✕</a>' : '';
 					echo '<div id="spu-body">';
 					echo "<div id='spu-title'>".$opt_wp_social_popup[$this->parameter['name_option'].'_title_message']."</div>
@@ -620,9 +611,11 @@ iframe.fb_iframe_widget_lift,
 	function add_actions_wsp(){
 
 		if(  ! defined( 'WP_CACHE' ) || ! WP_CACHE ){
-		
+
+			add_action( 'wp_head', array( &$this,'add_fb_script'),12);
+
             if( empty($_COOKIE['spushow']) || !$_COOKIE['spushow'] ){
-      
+
     			add_action( 'wp_footer', array( &$this,'print_scripts_footer'),13);
     			add_action( 'wp_footer',array(&$this,'print_pop' ),14 );
             }
@@ -674,6 +667,25 @@ iframe.fb_iframe_widget_lift,
 		}else{
 			return true;
 		}
+
+	}
+
+	/**
+	 * Facebook add the script in the header of the website
+	 *
+	 * @return html
+	 */
+	function add_fb_script(){
+
+		/*echo '
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));</script>';*/
 
 	}
 

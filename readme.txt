@@ -7,8 +7,8 @@ Author URI:
 Author: iLen
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 4.5
-Version: 4.5
+Stable tag: 4.6
+Version: 4.6
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,9 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.6 =
+* Update facebook api
+* Fixed error in facebook (test)
 = 4.5 =
 * Update core ilenframework 2.4
 = 4.4 =
