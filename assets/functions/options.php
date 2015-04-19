@@ -33,9 +33,9 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'4.6',
+                     'version'        =>'4.6.1',
                      'url'            =>'',
-                     'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px;"></i>',
+                     'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px!important;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
                      'logo_text'      =>'', // alt of image
                      'slogan'         =>'', // powered by <a href="">iLenTheme</a>
