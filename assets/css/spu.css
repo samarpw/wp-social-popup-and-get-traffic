@@ -106,6 +106,11 @@
     font-family: arial;
     text-decoration: none!important;
 }
+.spu-button.spu-twitter {
+    margin: 0 auto;
+    width: 100%;
+    margin-left: 38px;
+}
 .main_like_wsp{
     /*background: rgb(255, 255, 215);*/
     /*padding-top: 19px;
