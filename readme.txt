@@ -8,7 +8,7 @@ Author: iLen
 Requires at least: 3.9
 Tested up to: 4.1
 Stable tag: 4.6
-Version: 4.6.2
+Version: 4.6.3
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.6.3 =
+* Add options for disabled script facebook if double execute
 = 4.6.2 =
 * Css twitter fixed
 = 4.6.1 =

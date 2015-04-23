@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'4.6.2',
+                     'version'        =>'4.6.3',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px!important;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -669,6 +669,17 @@ class wp_social_popup_make{
                                                                             'id'    =>$this->parameter['name_option'].'_list_white', 
                                                                             'name'  =>$this->parameter['name_option'].'_list_white',  
                                                                             'class' =>'',
+                                                                            'row'   =>array('a','b')),
+
+                                                                    array(  'title' =>__('No load script facebook:',$this->parameter['name_option']),  
+                                                                            'help'  =>"If you have problems with the plugin and other social networking plugin can be a simultaneous load script facebook pampering with this option you can disable loading of this script so that it is not duplicated.",
+                                                                            'type'  =>'checkbox',
+                                                                            'value' =>'0',  
+                                                                            'value_check'=>1,
+                                                                            'id'    =>$this->parameter['name_option'].'_disabled_script', 
+                                                                            'name'  =>$this->parameter['name_option'].'_disabled_script',  
+                                                                            'class' =>'', //class
+                                                                            'after' =>'',
                                                                             'row'   =>array('a','b')),
 
                                                                     

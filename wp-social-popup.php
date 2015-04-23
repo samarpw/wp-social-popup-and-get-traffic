@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.6.2
+Version: 4.6.3
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -269,9 +269,16 @@ class wp_social_popup extends wp_social_popup_make{
 	 */
 	function ss_wp_social_popup(){
 
+		global $opt_wp_social_popup;
+
 		// load script networking
 		//wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#version=v2.0', array('jquery'),$this->parameter['version'],FALSE);
-		wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
+		if( isset($opt_wp_social_popup[$this->parameter['name_option'].'_disabled_script']) && $opt_wp_social_popup[$this->parameter['name_option'].'_disabled_script'] == 1 ){
+			null;
+		}else{
+			wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#xfbml=1', array('jquery'),$this->parameter['version'],FALSE);
+		}
+
 		wp_enqueue_script('wsp-tw', 'http://platform.twitter.com/widgets.js', array('jquery'),$this->parameter['version'],FALSE);
 		wp_enqueue_script('wsp-social', plugins_url( 'assets/js/spu.js' , __FILE__ ),array('jquery'),$this->parameter['version'],TRUE);
 
