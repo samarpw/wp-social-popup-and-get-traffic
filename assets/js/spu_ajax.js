@@ -273,6 +273,13 @@ jQuery(document).ready(function($){
 	if( isMobile() && ! wp_popup_cache_var.enabled_mobiles ) return;
 	if( wp_popup_cache_var.only_login && wp_popup_cache_var.if_only_login == 0 ){ return; }
 
+	// specific post
+	if( wp_popup_cache_var.only_in_post ){
+		var array_only_in_post = wp_popup_cache_var.only_in_post;
+		var array_specific_posts = array_only_in_post.split(",");
+		if( wp_popup_cache_var.only_in_post && !in_array( wp_popup_cache_var.post_current, array_specific_posts ) ){ return; }
+	}
+
 	// exclude ip
 	var array_exclude_ip = wp_popup_cache_var.exclude_ip;
 	var array_ips = array_exclude_ip.split(",");

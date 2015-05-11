@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'4.6.4',
+                     'version'        =>'4.7',
                      'url'            =>'',
                      'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px!important;"></i>',
                       // or image .jpg,png | use class 'text-long' in case of name long
@@ -48,7 +48,7 @@ class wp_social_popup_make{
                      'type'           =>'plugin',
                      'method'         =>'free',
                      'themeadmin'     =>'fresh',
-                     'scripts_admin'  =>array( 'page'        => array('wp_social_popup' => array('date','jquery_ui_reset')), ));
+                     'scripts_admin'  =>array( 'page'        => array('wp_social_popup' => array('date','jquery_ui_reset','tag')), ));
     }
 
     function getOptionsPlugin(){
@@ -62,7 +62,6 @@ class wp_social_popup_make{
     ${'tabs_plugin_' . $this->parameter['name_option']}['tab01']=array('id'=>'tab01','name'=>'Main Settings','icon'=>'<i class="fa fa-circle-o"></i>','width'=>'200'); 
     ${'tabs_plugin_' . $this->parameter['name_option']}['tab02']=array('id'=>'tab02','name'=>'Social Network','icon'=>'<i class="fa fa-share-alt"></i>','width'=>'200'); 
     ${'tabs_plugin_' . $this->parameter['name_option']}['tab03']=array('id'=>'tab03','name'=>'Advanced','icon'=>'<i class="fa fa-hand-o-up"></i>','width'=>'200'); 
-
 
     return array('a'=>array(                'title'      => __('Main Settings',$this->parameter['name_option']),        //title section
                                             'title_large'=> __('Main Settings',$this->parameter['name_option']),//title large section
@@ -636,6 +635,17 @@ class wp_social_popup_make{
                                                                             'id'    =>$this->parameter['name_option'].'_show_in', //id
                                                                             'name'  =>$this->parameter['name_option'].'_show_in', //name
                                                                             'class' =>'', //class
+                                                                            'row'   =>array('a','b')),
+
+
+                                                                    array(  'title' =>__('Show only post specific:',$this->parameter['name_option']), //title section
+                                                                            'help'  =>'Place the id of the post you just want to leave the "related post", by placing the plugin not show id post linking except whatever you put your.',
+                                                                            'type'  =>'tag',
+                                                                            'value' =>'',
+                                                                            'id'    =>$this->parameter['name_option'].'_'.'only_in_post', //id
+                                                                            'name'  =>$this->parameter['name_option'].'_'.'only_in_post', //name
+                                                                            'class' =>'',
+                                                                            'placeholder' => 'Write the ID...',
                                                                             'row'   =>array('a','b')),
                                                                     
                                                                     array(  'title' =>__('Only login:',$this->parameter['name_option']),  

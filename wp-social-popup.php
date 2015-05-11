@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.6.4
+Version: 4.7
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -54,6 +54,7 @@ class wp_social_popup extends wp_social_popup_make{
 
 			// validate if enabled popup
 			if( ! $opt_wp_social_popup[$this->parameter['name_option'].'_enabled'] ) return false;
+
 
 			// validate if current date is in range date
 			if( ! self::validate_show_plugin_for_range_date() ) return false;
@@ -178,6 +179,8 @@ class wp_social_popup extends wp_social_popup_make{
             'button_like_post_url'    =>get_permalink(),
             'ip_machine'			  =>$_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']),
             'exclude_ip'			  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_list_white'])?$opt_wp_social_popup[$this->parameter['name_option'].'_list_white']:'',
+            'only_in_post'			  =>isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_in_post'])?$opt_wp_social_popup[$this->parameter['name_option'].'_only_in_post']:'',
+            'post_current'			  =>isset($post) && $post?$post->ID:'',
 		) );
 
 
@@ -251,6 +254,7 @@ class wp_social_popup extends wp_social_popup_make{
 			}
 		}
 
+
 		// If $print_script is TRUE then loads script to show popup
 		//if( $print_script == true ) {
 			add_action('wp_enqueue_scripts', array( &$this,'ss_wp_social_popup'), 20 );
@@ -270,6 +274,10 @@ class wp_social_popup extends wp_social_popup_make{
 	function ss_wp_social_popup(){
 
 		global $opt_wp_social_popup;
+
+
+		// verify if specific post
+		if( self::only_specific_post() == false ) return false;
 
 		// load script networking
 		//wp_enqueue_script('wsp-fb', 'http://connect.facebook.net/en_US/all.js#version=v2.0', array('jquery'),$this->parameter['version'],FALSE);
@@ -310,6 +318,9 @@ class wp_social_popup extends wp_social_popup_make{
 	function print_scripts_footer(){
 
 		global $opt_wp_social_popup,$print_script;
+
+		// verify if specific post
+		if( self::only_specific_post() == false ) return false;
 
 		// Validate if login and not login
 		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
@@ -361,13 +372,13 @@ setTimeout(
 	   global $opt_wp_social_popup; 
        ?>
 <style>
-.fb_iframe_widget span
+/*.fb_iframe_widget span
 iframe.fb_iframe_widget_lift,
 .fb_iframe_widget iframe  {
     width:80px !important; 
     height:20px !important;
     position:relative;
-}
+}*/
 </style>
 	<?php }
 
@@ -395,6 +406,9 @@ iframe.fb_iframe_widget_lift,
 	function print_pop(){
 
 		global $opt_wp_social_popup,$print_script;
+
+
+		if( self::only_specific_post() == false ) return false;
 
 		// Validate if login and not login
 		if(  isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_login']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_login'] && !is_user_logged_in()  ){ return false; }
@@ -694,6 +708,35 @@ js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
 fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));</script>';*/
 
+	}
+
+
+	/**
+	 * Checks whether specific post only show in these and not to show elsewhere.
+	 *
+	 * @return boolean
+	 */
+	function only_specific_post(){
+
+		global $opt_wp_social_popup,$post;
+
+		$only_post = array();
+
+		// validate if tags exclude custom
+		if( isset($post) && $post && isset($opt_wp_social_popup[$this->parameter['name_option'].'_only_in_post']) && $opt_wp_social_popup[$this->parameter['name_option'].'_only_in_post'] ){
+
+			//  verify
+			$only_post = explode(",",$opt_wp_social_popup[$this->parameter['name_option'].'_only_in_post']);
+
+			if( in_array( $post->ID, $only_post  ) ){
+				return true;
+			}else{
+				return false;
+			}
+
+		}else{
+			return true;
+		}
 	}
 
 
