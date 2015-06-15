@@ -33,7 +33,7 @@ class wp_social_popup_make{
                      'name_option'    =>'wp_social_popup',
                      'name_plugin_url'=>'wp-social-popup-and-get-traffic',
                      'descripcion'    =>'Show content for likes/tweets/+1s',
-                     'version'        =>'4.8.3',
+                     'version'        =>'4.8.4',
                      'url'            =>'',
                      //'logo'           =>'<i class="fa fa-laptop text-long" style="padding:15px 14px!important;"></i>',
                      'logo'           =>'<img src="'.plugins_url()."/wp-social-popup-and-get-traffic/assets/images/logo.png".'" style="width: 79px;margin-right: 20px;position: relative;top: -14px;opacity: .8;" />',
@@ -640,7 +640,7 @@ class wp_social_popup_make{
 
 
                                                                     array(  'title' =>__('Show only post specific:',$this->parameter['name_option']), //title section
-                                                                            'help'  =>'Place the id of the post you just want to leave the "related post", by placing the plugin not show id post linking except whatever you put your.',
+                                                                            'help'  =>'Put separated by "comma" IDs which only want to display the popup only.',
                                                                             'type'  =>'tag',
                                                                             'value' =>'',
                                                                             'id'    =>$this->parameter['name_option'].'_'.'only_in_post', //id
