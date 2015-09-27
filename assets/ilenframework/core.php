@@ -1,15 +1,15 @@
 <?php 
 /**
- * iLenFramework 2.6.6
+ * iLenFramework 2.7.3
  * @package ilentheme
  * 
  * live as if it were the last day of your life
  */
 
 // REQUIRED FILES TO RUN
-if ( !class_exists('ilen_framework_2_6_6') ) {
+if ( !class_exists('ilen_framework_2_7_3') ) {
 
-class ilen_framework_2_6_6 {
+class ilen_framework_2_7_3 {
 
 		var $options          = array();
 		var $parameter        = array();
@@ -23,8 +23,8 @@ class ilen_framework_2_6_6 {
 		protected $api_google_fonts_url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCjae0lAeI-4JLvCgxJExjurC4whgoOigA";
 		protected $fonts_url = "//fonts.googleapis.com/css?family=";
 
-	function __construct(){
 
+	function __construct(){
 
 		if( ! is_admin() ){ // only front-end
 
@@ -159,8 +159,18 @@ class ilen_framework_2_6_6 {
 
 	function theme_plugin_install_set_default_values(){
 
+		global $options_theme;
 
-		if( (isset($_GET["activate"]) &&  $_GET["activate"] == 'true') || (isset($_GET["install_data"]) && $_GET["install_data"] == "true"  )  ){
+		if( isset($this->parameter['name_option']) && ! $options_theme = get_option( $this->parameter['name_option']."_options") ){
+
+			// if not exists options them create
+			$data_setup=self::get_default_options();
+			update_option( $this->parameter['name_option']."_options", $data_setup );
+			$options_theme = $data_setup;
+
+		}
+
+		/*if( (isset($_GET["activate"]) &&  $_GET["activate"] == 'true') || (isset($_GET["install_data"]) && $_GET["install_data"] == "true"  )  ){
 		
 			if( isset($this->parameter['name_option']) && ! $n = get_option( $this->parameter['name_option']."_options") ){
 		
@@ -169,7 +179,45 @@ class ilen_framework_2_6_6 {
 
 			}
 
-		}
+		}else{
+
+			//$data_opt = get_option( $this->parameter['name_option']."_options" );
+			if( isset($this->parameter['name_option']) && ! $n = get_option( $this->parameter['name_option']."_options") ){
+
+				// if not exists options them create
+				update_option( $this->parameter['name_option']."_options", self::get_default_options());
+
+			}
+
+			
+			/*if( ! $data_opt ){
+
+				$Myoptions = self::theme_definitions();
+
+				if( is_array($Myoptions) ){
+					foreach ($Myoptions as $key2 => $value2) {
+
+						if( $key2 != 'last_update' ){
+
+							foreach ($value2['options'] as $key3 => $value3) {
+
+								if( isset($value3['name']) && isset($value3['value']) ){
+									$options_update[ $value3['name'] ] = $value3['value'];	
+								}
+								
+							}
+						}else{
+							$options_update[$key2] = time();
+						}
+
+					}
+				}
+				//var_dump($options_update);
+				update_option( $this->parameter['name_option']."_options" , $options_update);
+
+			}
+
+		}*/
 		
 	}
 
@@ -187,7 +235,7 @@ class ilen_framework_2_6_6 {
 				if(  $key2 != 'last_update' ){
 					foreach ($value2['options'] as $key => $value) {
 
-						if( isset($value['name']) && $value['type'] != "html" ){
+						if( isset($value['name']) && isset($value['type']) && isset($value['value']) && $value['type'] != "html" ){
 							$defaults[$value['name']] = $value['value'];
 						}
 
@@ -258,16 +306,16 @@ class ilen_framework_2_6_6 {
 				</div>
 			</header>
 
-			<div id="tabs">
-				<ul>
+			<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all ilencontentwrapelements ui-helper-clearfix">
+				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 
 					<?php $Myoptions = self::theme_definitions();
 
 					if( is_array( $Myoptions ) ) {
 						foreach ($Myoptions as $key => $value) { ?>
 							<?php if($key != 'last_update'){ ?>
-									<li>
-										<a href="#<?php echo $key; ?>">
+									<li class="ui-state-default ui-corner-top">
+										<a href="#<?php echo $key; ?>" class="ui-tabs-anchor">
 											<?php 
 												if( $value['icon'] )
 													echo '<i class="'.$value['icon'].'"></i>';
@@ -440,8 +488,8 @@ class ilen_framework_2_6_6 {
 
 									if( is_array( $Myoptions ) ){
 										global $options_theme;
-										$options_theme = null;
-										$options_theme = get_option( $this->parameter['name_option']."_options" );
+										//$options_theme = null;
+										//$options_theme = get_option( $this->parameter['name_option']."_options" );
 
 										foreach ($Myoptions as $key => $value) {
 
@@ -609,8 +657,8 @@ function ilentheme_options_wrap_for_plugin_tabs(){  ?>
 						<?php
 
 							if( is_array( $Myoptions ) ){
-								global $options_theme;
-								$options_theme = null;
+								//global $options_theme;
+								//if( isset($_POST) && $_POST ) { $options_theme = get_option( $this->parameter['name_option']."_options" ); }
 								$options_theme = get_option( $this->parameter['name_option']."_options" );
 								foreach ($Myoptions as $key => $value) {
 
@@ -1188,10 +1236,10 @@ jQuery(".iaccordion-header").on("click",function(){
 	// =BUILD Fields themes---------------------------------------------
 	function build_fields( $fields = array() ){
 
-			global $if_utils;
+			global $if_utils,$options_theme;
 
 			$options_theme = get_option( $this->parameter['name_option']."_options" );
- 
+ 			//if( isset($_POST) && $_POST ) { $options_theme = get_option( $this->parameter['name_option']."_options" ); }
 			foreach ($fields as $key => $value) {
 
 					if( in_array("b", $value['row']) ) { $side_two = "b"; }else{  $side_two ="c"; }
@@ -1243,26 +1291,27 @@ jQuery(".iaccordion-header").on("click",function(){
 										<div class="help"><?php echo $value['help']; ?></div>
 										
 									<?php } elseif( isset($value['display']) && $value['display'] == 'types_post' ) { ?>
-										<?php $ck=''; if( isset($options_theme[ $value['name'] ]) ){ $ck =  checked(  $options_theme[ $value['name'] ]  , 1, FALSE );  }
 
+										<?php ///$ck=''; if( isset($options_theme[ $value['name'] ]) ){ $ck =  checked(  $options_theme[ $value['name'] ]  , 1, FALSE );  }
+										// get type post 
+										$post_types = get_post_types(array(), "objects");
+										$post_types_checked = "";
+										foreach ($post_types as $post_type): $post_types_checked = ""; ?>
+											<?php if( !in_array($post_type->name,array('revision','nav_menu_item')) ): ?>
+											<div class="row_checkbox_types_post">
+											 <?php 
+											 	if( isset($options_theme[ $value['name'] ]) && in_array( $post_type->name  , $options_theme[ $value['name'] ] ) ){
+											 		$post_types_checked = " checked='checked' ";
+											 	} ?>
+												<input <?php echo $post_types_checked; ?> type="checkbox" name="<?php echo $value['id'] ?>[]" id="<?php echo $value['id']."_".$post_type->name ?>" value="<?php echo $post_type->name; ?>"  /> 
 
-											// get type post 
-											$post_types = get_post_types(array(), "objects");
-
-											foreach ($post_types as $post_type): ?>
-												<?php if( !in_array($post_type->name,array('revision','nav_menu_item')) ): ?>
-												<div class="row_checkbox_types_post">
-
-													<input  type="checkbox" <?php if( in_array( $post_type->name  , (array)($options_theme[ $value['name'] ]) ) ){ echo " checked='checked' ";} ?> name="<?php echo $value['id'] ?>[]" id="<?php echo $value['id']."_".$post_type->name ?>" value="<?php echo $post_type->name; ?>"  /> 
-
-													<label for="<?php echo $value['id']."_".$post_type->name ?>"><span class="ui"></span></label>
-													&nbsp;<?php echo $post_type->labels->name; ?>
-												</div>
-												
-											<?php endif; ?>
-											<?php endforeach; ?>
-											<div class="help"><?php echo $value['help']; ?></div>
-										
+												<label for="<?php echo $value['id']."_".$post_type->name ?>"><span class="ui"></span></label>
+												&nbsp;<?php echo $post_type->labels->name; ?>
+												<div class="help"><?php //echo $value2['help']; ?></div>
+											</div>
+										<?php endif; ?>
+										<?php endforeach; ?>
+										<div class="help"><?php echo $value['help']; ?></div>
 									<?php }else { ?>
 										<?php $ck=''; if( isset($options_theme[ $value['name'] ]) ){ $ck =  checked(  $options_theme[ $value['name'] ]  , 1, FALSE );  } ?>
 										<div class="row_checkbox_normal">
@@ -1309,14 +1358,14 @@ jQuery(".iaccordion-header").on("click",function(){
 							<div class="row upload upload2 <?php if(isset( $value['class'] )){ echo $value['class'];} ?>" <?php if(isset( $value['style'] )){ echo $value['style'];} ?> >
 								<div class="a"><?php echo $value['title']; ?></div>
 								<div class="<?php echo $side_two; ?>">
-									<input id="<?php echo $value['id'] ?>" type="text" name="<?php echo $value['name'] ?>" value="<?php echo $options_theme[ $value['name'] ]; ?>" class="theme_src_upload"  />
+									<input id="<?php echo $value['id'] ?>" type="text" name="<?php echo $value['name'] ?>" value="<?php if( isset($options_theme[ $value['name'] ]) && $options_theme[ $value['name'] ] ){ echo $options_theme[ $value['name'] ]; }  ?>" class="theme_src_upload"  />
 									<a class="upload_image_button button top-tip" data-tips="<?php _e('Select image',$this->parameter['name_option']) ?>" data-title="<?php echo $value['title'] ?>" data-button-set="<?php _e('Select image',$this->parameter['name_option']) ?>" > <i class="fa fa-cloud-upload"></i><?php _e('',$this->parameter['name_option']) ?></a>
 									<?php if(isset( $value['value'] ) && $value['value']) : ?><a class="upload_image_default button top-tip" data-tips="<?php _e('Default',$this->parameter['name_option']) ?>" image-default="<?php echo $value['value']; ?>" > <i class="fa fa-repeat"></i><?php _e('',$this->parameter['name_option']) ?></a><?php endif; ?>
 									<div class="clearfix"></div>
 									<div class="preview">
-										<?php  if( $options_theme[ $value['name'] ] ) : ?>
+										<?php  if( isset($options_theme[ $value['name'] ]) && $options_theme[ $value['name'] ] ) : ?>
 											<img src="<?php echo $options_theme[ $value['name'] ]; ?>" />
-											<span class='admin_delete_image_upload'>✕</span>
+											<span class='admin_delete_image_upload admin_delete_image_upload_normal'>✕</span>
 										<?php endif; ?>
 									</div>
 									<div class="help"><?php echo $value['help']; ?></div>
@@ -1596,6 +1645,7 @@ jQuery(".iaccordion-header").on("click",function(){
 									<div class="wrap_background_complete">
 										<div class="part_1">
 											<input type="text" class="theme_color_picker" value="<?php echo $bg_complete['color'] ?>" name="<?php echo $value['name']; ?>_color" id="<?php echo $value['id'] ?>_color" data-default-color="<?php echo $bg_complete['color']; ?>" />
+											<input type="hidden" class="theme_color_picker_value" value="" />
 										</div>
 										<div class="part_2">
 											<div class="background_complete_transparent_check"><input type="checkbox"  id="<?php echo $value['id'] ?>_transparent" name="<?php echo $value['id'] ?>_transparent" value="1" <?php if(  $bg_complete['transparent'] ){ echo " checked='checked' ";} ?> /><label for="<?php echo $value['id'] ?>_transparent"><span class="ui"></span></label> Transparent</div>
@@ -1678,6 +1728,7 @@ jQuery(".iaccordion-header").on("click",function(){
 													<?php  if( $src ) : ?>
 														<span class='admin_delete_image_upload admin_delete_image_upload_complete'>✕</span>
 													<?php endif; ?>
+													<div class="preview_opacity_bg" style="top: 0;left: 0;height: 100%;width: 100%;position: absolute;"></div>
 												</div>
 											</div>
 										<div class="help"><?php echo $value['help']; ?></div>
@@ -1697,7 +1748,27 @@ jQuery(".iaccordion-header").on("click",function(){
 										$('#<?php echo $value['id'] ?>-range').Link().to( $('#<?php echo $value['id'] ?>_opacity'), null, wNumb({decimals: 0}) );
 										$('#<?php echo $value['id'] ?>-range').Link().to(function( value ){
 											var opacity_preview = parseInt(value) / 100;
-											$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").css("opacity", opacity_preview );
+											if( opacity_preview != 100 ){
+
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("opacity", opacity_preview );
+												var color_bg_opacity = $("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().find("input").val();
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("background-color", color_bg_opacity );
+											}else if( opacity_preview == 100 ){
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("opacity", "100" );
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("background-color", "transparent" );
+											}
+										});
+
+										$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().find("input").on("change",function(){
+											var opacity_preview = parseInt(value) / 100;
+											if( opacity_preview != 100 ){
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("opacity", opacity_preview );
+												var color_bg_opacity = $("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().find("input").val();
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("background-color", color_bg_opacity );
+											}else if( opacity_preview == 100 ){
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("opacity", "100" );
+												$("#<?php echo $value['id'] ?>_opacity").parent().parent().parent().parent().find(".preview").children(".preview_opacity_bg").css("background-color", "transparent" );
+											}
 										});
 										 
 									});
@@ -1813,7 +1884,7 @@ jQuery(".iaccordion-header").on("click",function(){
 										<div style="width:7%;float:left">
 											<span  id="<?php echo $value['id'] ?>-value" style="padding: 5px 10px;background: #FAFAFA;color: #444;border: 1px solid #F1F1F1;"></span>
 										</div>
-										<div style="width: 91%;float: right;padding: 0;border-radius: 5px;" >
+										<div style="width: 88%;float: right;padding: 0;border-radius: 5px;" >
 											<div id="<?php echo $value['id'] ?>-range" <?php if( isset($value['color']) && $value['color'] == 1 ){ echo "class='noUi-connect'"; } ?>></div> 
 										</div>
 										<input type="hidden" name="<?php echo $value['name'] ?>" id="<?php echo $value['id'] ?>" value="<?php if(isset( $options_theme[ $value['name'] ] )){ echo (int)$options_theme[ $value['name'] ]; }else{ echo 0; } ?>" />
@@ -1856,33 +1927,115 @@ jQuery(".iaccordion-header").on("click",function(){
 
 						<?php break;
 
-						case "fonts_full": ?>
+						case "fonts": ?>
 							<?php if(isset( $value['before'] )){ echo $value['before'];} ?>
 							<div class="row <?php if(isset( $value['class'] )){ echo $value['class'];} ?> ifonts_full" <?php if(isset( $value['style'] )){ echo $value['style'];} ?> >
 								<div class="a"><?php if(isset( $value['title'] )){ echo $value['title']; } ?></div>
 								<div class="<?php echo $side_two; ?>">
-								  	<?php 
-								  	$fonts = $if_utils->IF_get_google_fonts();
-								  	if( is_array($fonts) ){
-								  		$font_families = "";
-								  		$font_count = 1;
-										foreach ($fonts as $font) {
-											$font_family = $font["family"];
-											$font_families .= "<option value=\"$font_family\" num='$font_count'>$font_family</option>";
-											$font_count++;
+								  	<?php
+								  	//var_dump( $_POST[$value['name']] );
+								  	// reset values
+									$if_fonts                 = '';
+									$if_fonts['color']        = '';
+									$if_fonts['variant']      = '';
+									$if_fonts['variant_list'] = '';
+									$if_fonts['font']         = '';
+									$if_fonts['size']         = '';
+
+									// set values
+									if( isset( $options_theme[ $value['name'] ]) && $options_theme[ $value['name'] ]){ 
+										$if_fonts = $options_theme[ $value['name'] ];
+
+										if( isset($value['use']) && !( in_array('size',$value['use'] ) ) ){
+											$if_fonts['size'] = $value['value']['size'];
 										}
-										
+										if( isset($value['use']) &&  in_array('variant',$value['use']) && !$if_fonts['variant_list'] ){
+											$if_fonts['variant_list'] = implode(",",$value['value']['variant_list']);
+										}
+									}else{
+										$if_fonts['color']               = $value['value']['color'];
+										$if_fonts['variant']             = $value['value']['variant'];
+										$if_fonts['variant_list'] 		 = $value['value']['variant_list'];
+										$if_fonts['font']                = $value['value']['font'];
+										$if_fonts['size']                = $value['value']['size'];
+									}
+									 
+								  	if( isset($value['use']) && ( in_array('font',$value['use'] ) )   ){
+
+									  	$fonts = $if_utils->IF_get_google_fonts();
+									  	if( is_array($fonts) ){
+									  		$font_families = "";
+									  		$font_count = 1;
+											foreach ($fonts as $font) {
+												$font_family = $font["family"];
+												$select = ($font_family == $if_fonts['font']?"selected='selected'":"");
+												$font_families .= "<option $select value=\"$font_family\" num='$font_count'>$font_family</option>";
+												$font_count++;
+											}
+									  	}
+
+									}
+
+									if( in_array('size',$value['use'] )  ){
 										$numbers = "";
-										foreach (range(1, 120) as $number) {
-											$numbers .= "<option value=\"{$number}px\">{$number}px</option>";
+										foreach (range(7, 44) as $number) {
+											$select = ($number == $if_fonts['size']?"selected='selected'":"");
+											$numbers .= "<option $select value=\"{$number}px\">{$number}px</option>";
 										}
+									}
+
+									$html_variant_list = "";
+									if( isset($value['use']) && ( in_array('variant',$value['use'] ) )   ){
+										if( isset($if_fonts['variant_list']) && $if_fonts['variant_list'] ){
+
+											if( is_string($if_fonts['variant_list']) ){
+									  			$array_variant_list = explode(",",$if_fonts['variant_list']); 
+									  		}elseif( is_array($if_fonts['variant_list']) ){
+									  			$array_variant_list = $if_fonts['variant_list'];	
+									  		}
+
+											//$array_variant_list = $if_fonts['variant_list']; //explode(",",$if_fonts['variant_list']);
+											if( is_array($array_variant_list) ){
+
+												foreach ($array_variant_list as $array_variant_list_key => $array_variant_list_value) {
+													$selected = $if_fonts['variant'] == $array_variant_list_value ? "selected='selected'":"";
+													$html_variant_list .="<option $selected value='$array_variant_list_value'>$array_variant_list_value</option>";
+												}
+
+											}
+
+										}
+
+									}
+
+									if( in_array('font',$value['use'] )  ){
+								  		echo "<div class='select-wrapper ifonts_family'><select class='select--gfonts__family' name='{$value['name']}_family' id='{$value['id']}_family'  >$font_families</select></div>";
 								  	}
-								  	if( $font_families && $numbers ){
-								  		echo "<div class='select-wrapper ifonts_family'><select  name='{$value['name']}_family' id='{$value['id']}_family'  >$font_families</select></div>";
-								  		echo "<div class='select-wrapper ifonts_variants'><select  name='{$value['name']}_variants' id='{$value['id']}_variants'  ></select></div>";
-								  		echo "<div class='select-wrapper ifonts_size'><select  name='{$value['name']}_size' id='{$value['id']}_size'  >$numbers</select></div>";
+								  	if( in_array('variant',$value['use'] )  ){
+								  		
+								  		$fonts_variants_hidden = implode(",",$array_variant_list);
+								  		echo "<div class='select-wrapper ifonts_variants'><select  class='select--gfonts__variant'  name='{$value['name']}_variants' id='{$value['id']}_variants'  >$html_variant_list</select>
+								  			<input type='hidden' value='$fonts_variants_hidden' name='{$value['name']}_variants_list'  id='{$value['name']}_variants_list' /></div>";
+								  	}
+								  	if( in_array('size',$value['use'] ) ){
+								  		echo "<div class='select-wrapper ifonts_size'><select  class='select--gfonts__size'  name='{$value['name']}_size' id='{$value['id']}_size'  >$numbers</select></div>";
+								  	}
+								  	if( in_array('color',$value['use'] ) ){
+								  		echo "<input type='text' class='theme_color_picker' value='{$if_fonts["color"]}' name='{$value["name"]}_color' id='{$value["id"]}_color' data-default-color='".$value["value"]["color"]."' />";
+								  		echo "<input type='hidden' class='theme_color_picker_value_font'  />";
+								  	}
+								  	if( in_array('ld',$value['use'] ) ){
+								  		echo "<div class='fonts_check_light_night' ><input class='input_check_light_dark' type='checkbox' name='{$value["name"]}_sun_nigth' id='{$value["id"]}_sun_nigth' value=''  /><label  for='{$value["id"]}_sun_nigth'><span class='ui'></span></label></div>";
 								  	}
 
+							  		echo "<div class='ilen_clearfix'></div>";
+
+							  		// get font current
+							  		$size_font_g = ((int)(str_replace("px","",$if_fonts["size"]))) + 15;
+							  		$size_font_set = ((int)(str_replace("px","",$if_fonts["size"])));
+							  		$size_font_set_px = "{$size_font_set}px";
+							  		echo "<script>jQuery(document).ready( function($) { addGoogleFont( '{$if_fonts['font']}', '{$if_fonts["variant"]}' ); });</script>";
+							  		echo "<div class='ifonts_preview' style='font-family:\"{$if_fonts["font"]}\";font-size:{$size_font_set_px};line-height:{$size_font_g}px;font-weight:{$if_fonts["variant"]};color:{$if_fonts["color"]};'>abcdedfghijklmopqrstuvwxyz <br /> ABCDEDFGHIJKLMOPQRSTUVWXYZ <br /> 1234567890</div>";
 								  	?>
 
 									<div class="help"><?php if( isset($value['help']) ){ echo $value['help']; } ?></div>
@@ -1895,7 +2048,7 @@ jQuery(".iaccordion-header").on("click",function(){
 					}
 
 			}
-
+//exit;
 	}
 
 
@@ -1904,7 +2057,9 @@ jQuery(".iaccordion-header").on("click",function(){
 	function build_fields_p( $fields = array() ){
 
 			//$options_theme = get_option( $this->parameter['name_option']."_options" );
-			global $options_theme;
+			//global $options_theme;
+			$options_theme = get_option( $this->parameter['name_option']."_options" );
+	
 			foreach ($fields as $key => $value) {
 
 					if( in_array("b", $value['row']) ) { $side_two = "b"; }else{  $side_two ="c"; }
@@ -2360,6 +2515,39 @@ jQuery(".iaccordion-header").on("click",function(){
 								<script>
 									jQuery(document).ready(function($){
 										jQuery('#<?php echo $value['id']; ?>').tagEditor({ placeholder: '<?php if(isset($value['placeholder']) && $value['placeholder']){ echo $value['placeholder']; } ?>',forceLowercase:false });
+									});
+								</script>
+							</div>
+							<?php if(isset( $value['after'] )){ echo $value['after'];} ?>
+
+						<?php break;
+
+						case "timer_range": ?>
+
+							<?php if(isset( $value['before'] )){ echo $value['before'];} ?>
+							<div class="row ilen_timerange <?php if(isset( $value['class'] )){ echo $value['class'];} ?>" <?php if(isset( $value['style'] )){ echo $value['style'];} ?> >
+								<div class="a"><strong><?php echo $value['title']; ?></strong><div class="help"><?php echo $value['help']; ?></div></div>
+								<div class="<?php echo $side_two; ?>">
+									<?php $clock_range_1 = isset($options_theme[ $value['name'] ])?$options_theme[ $value['name'] ]:''; ?>
+									<div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+										<input type="text" class="form-control ilen_timerange_<?php echo $value['id']."_from"; ?>"  value="<?php echo isset($clock_range_1['from'])?$clock_range_1['from']:''; ?>" id="<?php echo $value['id']."_from"; ?>" name="<?php echo $value['name']."_from" ?>" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?>>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div> &nbsp;
+									<?php if(isset($value['text_to'])){ echo "<div class='clockpicker_text'>".$value['text_to']."</div>"; } ?>
+									 &nbsp;
+									<div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+										<input type="text" class="form-control ilen_timerange_<?php echo $value['id']."_to"; ?>"  value="<?php echo isset($clock_range_1['to'])?$clock_range_1['to']:''; ?>" id="<?php echo $value['id']."_to"; ?>" name="<?php echo $value['name']."_to" ?>" <?php if(isset($value['placeholder'])){ echo "placeholder='{$value['placeholder']}'"; } ?>>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+									
+								</div>
+								<script>
+									jQuery(document).ready(function($){
+										$('.clockpicker').clockpicker({<?php if(isset($value['js_options'])){ echo $value['js_options']; } ?>});
 									});
 								</script>
 							</div>
@@ -3098,6 +3286,7 @@ function save_options(){
 		global $options_update;
 
 		$options_update = null;
+		//delete_option( $this->parameter['name_option']."_options" );
 
 		//code save options the theme
 		if( isset($_POST) && ( isset($_POST['save_options']) || isset($_POST['reset_options'] ) ) && $_POST["name_options"] == $this->parameter["name_option"] ){
@@ -3119,7 +3308,7 @@ function save_options(){
 			}
 
 			if( is_array($options_update) ){    
-				
+
 				if(update_option( $this->parameter['name_option']."_options" , $options_update)){
 					$this->save_status = true;
 				}else{
@@ -3373,6 +3562,26 @@ function fields_update($data,$is_tab = 1){
 
 				$options_update[$value['name']] =  $_POST[$value['name']];
 
+			}elseif(  $value['type'] == 'fonts' ){
+
+				$if_fonts                 = array();
+				$if_fonts['color']        = isset($_POST["{$value['name']}_color"])?$_POST["{$value['name']}_color"]:'';
+				$if_fonts['variant']      = isset($_POST["{$value['name']}_variants"])?$_POST["{$value['name']}_variants"]:'';
+				$if_fonts['variant_list'] = isset($_POST["{$value['name']}_variants_list"])?$_POST["{$value['name']}_variants_list"]:'';
+				$if_fonts['font']         = isset($_POST["{$value['name']}_family"])?$_POST["{$value['name']}_family"]:'';
+				$if_fonts['size']         = isset($_POST["{$value['name']}_size"])?$_POST["{$value['name']}_size"]:'';
+
+				$options_update[$value['name']]    = $if_fonts; 
+ 
+			}elseif(  $value['type'] == 'timer_range' ){
+
+				$timer_range_array = array();
+				$timer_range_array['from']    = isset($_POST["{$value['name']}_from"])?$_POST["{$value['name']}_from"]:'';
+				$timer_range_array['to'] 	  = isset($_POST["{$value['name']}_to"])?$_POST["{$value['name']}_to"]:'';
+
+				//var_dump($background_complete_array);
+				$options_update[$value['name']]    = $timer_range_array; 
+
 			}else{
 
 
@@ -3398,7 +3607,7 @@ function fields_update($data,$is_tab = 1){
 
 			
 		
-		}elseif( $_POST['reset_options'] ){
+		}elseif( isset($_POST['reset_options']) ){
 
 			if(  $value['type'] != 'html'  ){
 
@@ -3584,7 +3793,7 @@ function fields_update($data,$is_tab = 1){
 	function ilenframework_add_scripts_admin(){
 
 
-		global $pagenow,$post_type;
+		global $pagenow,$post_type,$script_to_show;
 
 
 		// If is admin page (if front-end not load)
@@ -3648,7 +3857,8 @@ function fields_update($data,$is_tab = 1){
 			// VALIDATION: Show script only page
 			$script_to_show = array();
 			if( isset($_GET['page']) && $_GET['page'] ){
-				if(isset($this->parameter['scripts_admin']['page'][$_GET['page']])){
+				//echo "{$_GET['page']} - ".$this->parameter['id_menu'];
+				if(isset($this->parameter['scripts_admin']['page'][$_GET['page']]) && $_GET['page'] == $this->parameter['id_menu'] ){
 					$script_to_show = $this->parameter['scripts_admin']['page'][$_GET['page']];
 				}
 			}elseif( isset($post_type) && $post_type ){
@@ -3771,6 +3981,14 @@ function fields_update($data,$is_tab = 1){
 				wp_enqueue_script('ilentheme-script-tag-editor-'.$this->parameter['id'], $this->parameter['url_framework'] . '/assets/js/jquery.tag-editor.min.js', array(  'jquery','jquery-ui-core','jquery-ui-tabs','jquery-ui-autocomplete', 'jquery-ui-sortable'  ), '', true );
 			}
 
+			if( in_array( 'timer_range', $script_to_show ) ){
+				// time: keith-wood.name/timeEntry.html
+				wp_register_style( 'ilentheme-style-clockpicker-'.$this->parameter['id'],  $this->parameter['url_framework'] . '/assets/css/jquery-clockpicker.min.css' );
+				wp_enqueue_style(  'ilentheme-style-clockpicker-'.$this->parameter['id'] );  
+
+				wp_enqueue_script('ilentheme-script-clockpicker-plugin-'.$this->parameter['id'], $this->parameter['url_framework'] . '/assets/js/jquery-clockpicker.min.js', array(  'jquery','jquery-ui-core','jquery-ui-tabs'  ), '', true );
+			}
+
 
 			if( in_array( 'fonts', $script_to_show ) ){
 				null;
@@ -3787,7 +4005,6 @@ function fields_update($data,$is_tab = 1){
 
 		global $IF_CONFIG;
 
-		
 		// COMPONENTS _______________________________________________________________________
 		if( isset( $this->components ) ){
 		if( in_array( 'list_categories', $IF_CONFIG->components )  ){
@@ -3816,10 +4033,14 @@ function fields_update($data,$is_tab = 1){
 	function AjaxElements(){
 
 		global $if_utils;
-
 		// For search post in select2
 		add_action( 'wp_ajax_select2-search-post' , array( $if_utils, 'IF_get_result_post_via_ajax' ) );
 		add_action( 'wp_ajax_nopriv_select2-search-post' , array( $if_utils, 'IF_get_result_post_via_ajax' ) );
+
+		// for fonts
+		add_action("wp_ajax_get_google_font_variants", array(__CLASS__,"get_google_font_variants_via_ajax"));
+		add_action('wp_ajax_nopriv_get_google_font_variants', array(__CLASS__,"get_google_font_variants_via_ajax"));
+		
 
 	}
 
@@ -3879,18 +4100,19 @@ function fields_update($data,$is_tab = 1){
 	 * @return JSON object with font data
 	 *
 	 */
-	function ajax_get_google_font_variants() { 
+	function get_google_font_variants_via_ajax() {
 
 		global $if_utils;
-		$fonts = $if_utils->get_fonts();
+		
+		$fonts = $if_utils->IF_get_google_fonts();
 		$font_family = $_GET["font_family"];
 		
 		$result = $if_utils->multidimensional_search($fonts, array("family" => $font_family));
-		
+
 		header("Content-Type: application/json");
 		echo json_encode($result["variants"]);
+		wp_die();
 
-		exit;
 	}
 
 
@@ -3905,5 +4127,5 @@ if( isset($IF_CONFIG->components) && ! is_array($IF_CONFIG->components) ){
 
 global $IF;
 $IF = null;
-$IF = new ilen_framework_2_6_6;
+$IF = new ilen_framework_2_7_3;
 ?>
