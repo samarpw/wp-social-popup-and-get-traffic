@@ -1,15 +1,15 @@
 <?php 
 /**
- * iLenFramework 2.7.3
+ * iLenFramework 2.7.4
  * @package ilentheme
  * 
  * live as if it were the last day of your life
  */
 
 // REQUIRED FILES TO RUN
-if ( !class_exists('ilen_framework_2_7_3') ) {
+if ( !class_exists('ilen_framework_2_7_4') ) {
 
-class ilen_framework_2_7_3 {
+class ilen_framework_2_7_4 {
 
 		var $options          = array();
 		var $parameter        = array();
@@ -3805,15 +3805,15 @@ function fields_update($data,$is_tab = 1){
 			//SCRITP ALWAYS SHOWN IN THE ADMINISTRATION
 			//__________________________________________
 			// Register styles
-			wp_register_style( 'ilentheme-styles-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/core.css" );
+			wp_register_style( 'ilentheme-styles-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/core.css",null, $this->parameter['version']);
 			// Enqueue styles
 			wp_enqueue_style( 'ilentheme-styles-admin' );
 			// Register styles
-			wp_register_style( 'ilentheme-styles-admin-2', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/assets/css/ilen-css-admin.css" );
+			wp_register_style( 'ilentheme-styles-admin-2', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') ."/assets/css/ilen-css-admin.css",null, $this->parameter['version'] );
 			// Enqueue styles
 			wp_enqueue_style( 'ilentheme-styles-admin-2' );
 			// Enqueue Script Core
-			wp_enqueue_script('ilentheme-script-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') . '/core.js', array( 'jquery','jquery-ui-core','jquery-ui-tabs','wp-color-picker' ,'jquery-ui-accordion','jquery-ui-autocomplete','jquery-ui-sortable' ), '', true );
+			wp_enqueue_script('ilentheme-script-admin', (isset($this->parameter['url_framework'])?$this->parameter['url_framework']:'') . '/core.js', array( 'jquery','jquery-ui-core','jquery-ui-tabs','wp-color-picker' ,'jquery-ui-accordion','jquery-ui-autocomplete','jquery-ui-sortable' ), $this->parameter['version'], true );
 			// Enqueue Scripts WP
 			if(function_exists( 'wp_enqueue_media' )){
 				wp_enqueue_media();
@@ -3829,13 +3829,13 @@ function fields_update($data,$is_tab = 1){
 			if( $this->parameter['themeadmin'] ){
 				//wp_register_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css" );
 				//wp_enqueue_style( 'ilentheme-styles-admin-theme-'.$this->parameter['id'] );
-				wp_register_style( 'ilentheme-styles-admin-theme', $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css" );
+				wp_register_style( 'ilentheme-styles-admin-theme', $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}.css", null, $this->parameter['version'] );
 				wp_enqueue_style( 'ilentheme-styles-admin-theme');
 
 				// RTL
 				if( is_rtl() ){
 					//echo "<select><option value='123'>hola que tal</option></select>";
-					wp_register_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}-rtl.css" );
+					wp_register_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'], $this->parameter['url_framework'] ."/assets/css/theme-{$this->parameter['themeadmin']}-rtl.css",null,$this->parameter['version'] );
 					wp_enqueue_style( 'ilentheme-styles-admin-theme-rtl-'.$this->parameter['id'] );
 
 				}
@@ -4127,5 +4127,5 @@ if( isset($IF_CONFIG->components) && ! is_array($IF_CONFIG->components) ){
 
 global $IF;
 $IF = null;
-$IF = new ilen_framework_2_7_3;
+$IF = new ilen_framework_2_7_4;
 ?>
