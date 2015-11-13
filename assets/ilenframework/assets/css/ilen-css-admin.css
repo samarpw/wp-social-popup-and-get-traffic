@@ -5,7 +5,7 @@
 .left{
   float: left;
 }
-.clearfix,.ilen_clearfix{
+.ilen_clearfix{
   clear: both;
   display: block;
   width: 100%;

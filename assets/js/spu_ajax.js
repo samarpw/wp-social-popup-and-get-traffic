@@ -422,7 +422,7 @@ jQuery(document).ready(function($){
 
 				if( wp_popup_cache_var.button_youtube_suscribe ){
 
-					html_youtube = '<div id="button_youtube" style="display: inline-block;"><div class="g-ytsubscribe" data-channel="'+wp_popup_cache_var.button_youtube_suscribe+'" data-layout="full" data-count="undefined"></div></div>';
+					html_youtube = '<div id="button_youtube" style="display: inline-block;"><div class="g-ytsubscribe" data-channelid="'+wp_popup_cache_var.button_youtube_suscribe+'" data-layout="full" data-count="undefined"></div></div>';
 
 				}
 

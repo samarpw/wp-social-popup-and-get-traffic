@@ -1,15 +1,15 @@
 <?php 
 /**
- * iLenFramework 2.7.5
+ * iLenFramework 2.7.6
  * @package ilentheme
  * 
  * live as if it were the last day of your life
  */
 
 // REQUIRED FILES TO RUN
-if ( !class_exists('ilen_framework_2_7_5') ) {
+if ( !class_exists('ilen_framework_2_7_6') ) {
 
-class ilen_framework_2_7_5 {
+class ilen_framework_2_7_6 {
 
 		var $options          = array();
 		var $parameter        = array();
@@ -4127,5 +4127,5 @@ if( isset($IF_CONFIG->components) && ! is_array($IF_CONFIG->components) ){
 
 global $IF;
 $IF = null;
-$IF = new ilen_framework_2_7_5;
+$IF = new ilen_framework_2_7_6;
 ?>

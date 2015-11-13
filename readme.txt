@@ -2,13 +2,13 @@
 Contributors: iLenStudio
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
-Tags: Facebook, google, google plus, pop-up, popup, Share, share content, sharing, sociable, sociable share, social, twitter, windows popup,social buttons, social network, social networking, Social Plugins, traffic, twitter,share for unlocker, like unlocker,like unlock,+1 unlock,tweet unlock,like for unlock,unlock,popup unlock,popup unlocker,follow for unlock,twitter unlock,google unlock,facebook unlock, traffic popup, seo popup,seo,youtube,unlock content,unlocker content,rtl,plugin rtl
+Tags: facebook, google, popup, share, sharing, unlock,  twitter, social network, traffic,like unlocker,popup unlock,youtube
 Author URI: 
 Author: iLen
 Requires at least: 3.9
 Tested up to: 4.3.1
 Stable tag:  4.95
-Version: 4.95
+Version: 4.95.1
 License: GPLv2 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KN6G7PNRZKAEU
 
@@ -83,6 +83,8 @@ With multiple social accounts can increase in a dynamic way, or you can also jus
 
 
 == Changelog ==
+= 4.95.1 =
+* Improve: YouTube channel (youtube) now only be set by the channel ID and no user.
 = 4.95 =
 * Update core <code>iLenFramework 2.7.5</code>
 = 4.94 =

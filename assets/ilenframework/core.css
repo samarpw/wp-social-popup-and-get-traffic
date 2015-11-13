@@ -2003,26 +2003,44 @@ html .ilenplugin-options input[type="button"],
 
 }
 .popover.left > .arrow{
-  left: initial;
+    left: initial;
 }
 
 .ilenplugin-options .btn-group [class^="btn-"] {
-  color: #4D4D4D!important;
+    color: #4D4D4D!important;
 }
 
 .ilenplugin-options .input-group .date input[type=text],
 .ilenplugin-options .row .input-group input[type=text]{
-  width: 100%;
-  margin-left: 2px;
+    width: 100%;
+    margin-left: 2px;
 }
 .ilenplugin-options .picker-switch a.btn{
-  padding: 0!important;
+    padding: 0!important;
 }
 .ilenplugin-options .ilen-page-content .btn:hover{
-  background: inherit;
+    background: inherit;
 }
 .ilenplugin-options .flag-style{
-  display: inline-block;
-  width: 16px;
-  height: 11px;
+    display: inline-block;
+    width: 16px;
+    height: 11px;
+}
+/*
+@link http://codepen.io/jeffballweg/pen/XJKwvp
+*/
+.ilenplugin-options .text_emphasis{
+    background: -webkit-linear-gradient(rgba(227, 221, 36, 0.15), rgba(227, 221, 36, 0.6), rgba(196, 191, 22, 0.6), rgba(227, 221, 36, 0.24));
+    background: linear-gradient(rgba(227, 221, 36, 0.15), rgba(227, 221, 36, 0.6), rgba(196, 191, 22, 0.6), rgba(227, 221, 36, 0.24));
+    border-right: solid 0.5em rgba(196, 191, 22, 0.15);
+    border-left: solid 0.5em rgba(227, 221, 36, 0.3);
+    text-decoration: none;
+
+    padding: 0.3em 0em 0.2em 0em;
+    margin: 0.3em -0.5em 0.3em -0.5em;
+    border-radius: 50% 3em 50% 3em;
+    color: rgba(0, 0, 0, 0.7);
+    -webkit-box-decoration-break: clone;
+    -o-box-decoration-break: clone;
+    box-decoration-break: clone;
 }

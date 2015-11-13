@@ -3,7 +3,7 @@
 Plugin Name: WP Social Popup and Get Traffic
 Plugin URI: https://wordpress.org/plugins/wp-social-popup-and-get-traffic/
 Description: Show content for likes/follow/+1/Youtube
-Version: 4.95
+Version: 4.95.1
 Author: iLen
 Author URI: http://ilentheme.com
 */
@@ -439,7 +439,7 @@ iframe.fb_iframe_widget_lift,
 			*/
 			//--YOUTUBE
 			if( isset( $opt_wp_social_popup[$this->parameter['name_option']."_button_youtube_suscribe"] ) && $opt_wp_social_popup[$this->parameter['name_option']."_button_youtube_suscribe"] ){
-				$socials["youtube"] ='<div class="g-ytsubscribe" data-channel="'.$opt_wp_social_popup[$this->parameter['name_option']."_button_youtube_suscribe"].'" data-layout="default" data-count="default"></div>';
+				$socials["youtube"] ='<div class="g-ytsubscribe" data-channelid="'.$opt_wp_social_popup[$this->parameter['name_option']."_button_youtube_suscribe"].'" data-layout="default" data-count="default"></div>';
 			}
 				
 			//--GOOGLE
@@ -457,7 +457,7 @@ iframe.fb_iframe_widget_lift,
 			}
 
 			//--TWITTER
-			$social_button_set = "";
+			$social_button_set = ""; 
 			if( $opt_wp_social_popup[$this->parameter['name_option']."_button_tw"] == '1' )
 				if( ! $social_button_set = $opt_wp_social_popup[$this->parameter['name_option']."_twitter_url_{$suf_day}"] )
 					if( $social_button_set = $opt_wp_social_popup[$this->parameter['name_option']."_twitter_url_default"] )

@@ -367,6 +367,9 @@ a:hover{text-decoration: none!important;}
     font-style: italic;
     line-height: 14px;
 }
+.ilenplugin-options .postbox .help strong{
+    font-weight: bold;
+}
 .ilenplugin-options .postbox h3 span{
     font-weight: normal;
     color: #C0C0C0;
@@ -433,6 +436,7 @@ a:hover{text-decoration: none!important;}
     display: inline-block;
     position: relative;
     color: #616161;
+    margin-bottom: 0;
 }
 .ilenplugin-options header .header__logo i{
     padding: 13px 20px;
@@ -444,9 +448,10 @@ a:hover{text-decoration: none!important;}
 }
 
 
-.ilenplugin-options header.text-long .header__logo{
+.ilenplugin-options header.text-long .header__logo,
+.ilenplugin-options header .header__logo{
     float: left;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .ilenplugin-options header h2{
     width: 33%;
@@ -758,6 +763,9 @@ input[type="range"]::-webkit-slider-thumb {
     font-weight: 300;
     font-size: 13px;
     text-align: center;
+}
+.ilenplugin-options #tabs > ul{
+    background: rgba(236, 236, 236, 0.67);
 }
 .ilenplugin-options #tabs > ul li a{
     color: #AFB4B5;
