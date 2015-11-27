@@ -244,7 +244,7 @@ a:hover{text-decoration: none!important;}
 }
 
 .ilenplugin-options .has-right-sidebar #post-body-content .post-body-content__wrap{
-    box-shadow: 0px 0px 3px rgb(187, 187, 187f)!important;
+    box-shadow: 0px 0px 3px rgb(187, 187, 187);
 }
 
 
@@ -278,7 +278,8 @@ a:hover{text-decoration: none!important;}
     margin-bottom: 0;
     margin: 20px 30px;
     border-radius: 3px;
-    border: 1px solid #F1F1F1;
+    /*border: 2px solid #F1F1F1;*/
+    border:2px solid #ECECEC;
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
 }
 .ilenplugin-options .postbox:last-child{
@@ -410,7 +411,7 @@ a:hover{text-decoration: none!important;}
     width: 100%!important;
 }
 .ilenplugin-options .row.radio_image .c img{
-    margin-right: 18px;
+    margin-right: 16px;
 }
 
 .ilenplugin-options .wp-picker-input-wrap input[type="text"]{
@@ -764,16 +765,19 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 13px;
     text-align: center;
 }
-.ilenplugin-options #tabs > ul{
+.ilenplugin-options .ilentabs > ul{
     background: rgba(236, 236, 236, 0.67);
 }
-.ilenplugin-options #tabs > ul li a{
+ 
+.ilenplugin-options .ilentabs #nav h2 a,
+.ilenplugin-options #tabs ul li a {
     color: #AFB4B5;
-    border-top: 2px solid #F1F1F1;
+    border-top: 2px solid #E7E7E7;
 }
-.ilenplugin-options #tabs > ul li.ui-tabs-active a{
-    color: #444;
-    border-top: 2px solid #8C8C8C;
+.ilenplugin-options .ilentabs #nav h2 a.nav-tab-active,
+.ilenplugin-options #tabs .ui-state-active a{
+    color: #444!important;
+    border-top: 2px solid #8C8C8C!important;
 }
 .ilenplugin-options .row.radio_image {
     padding-left: 20px;
@@ -1432,7 +1436,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 34px;
     padding: 3px 10px 1px;
 
-    width: 177px;
+    width: 100%;
     text-align: center;
 }
 .ilentheme-options .upload_image_button_complete i {

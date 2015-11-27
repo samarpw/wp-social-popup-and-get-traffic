@@ -552,8 +552,9 @@ function IF_hex2rgba($color, $opacity = false, $to_array = false) {
 * MIX COLORS
 * @link https://gist.github.com/andrewrcollins/4570993
 * @since 2.7.5 It was commented that causes problems with versions of PHP.
+* @since 2.7.7 reactivate.
 */
-/*function IF_mix_colors($color_1 = array(0, 0, 0), $color_2 = array(0, 0, 0), $weight = 0.5){
+function IF_mix_colors($color_1 = array(0, 0, 0), $color_2 = array(0, 0, 0), $weight = 0.5){
 	$f = @function($x) use ($weight) { return $weight * $x; };
 	$g = @function($x) use ($weight) { return (1 - $weight) * $x; };
 	$h = @function($x, $y) { return round($x + $y); };
@@ -571,7 +572,7 @@ function IF_tint($color, $weight = 0.5){
 	$u = $this->IF_mix_colors($t, array(255, 255, 255), $weight);
 	if(is_string($color)) return $this->IF_rgb2hex($u);
 	return $u;
-}*/
+}
 
 
 

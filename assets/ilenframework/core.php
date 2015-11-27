@@ -1,15 +1,15 @@
 <?php 
 /**
- * iLenFramework 2.7.6
+ * iLenFramework 2.7.7
  * @package ilentheme
  * 
  * live as if it were the last day of your life
  */
 
 // REQUIRED FILES TO RUN
-if ( !class_exists('ilen_framework_2_7_6') ) {
+if ( !class_exists('ilen_framework_2_7_7') ) {
 
-class ilen_framework_2_7_6 {
+class ilen_framework_2_7_7 {
 
 		var $options          = array();
 		var $parameter        = array();
@@ -1707,7 +1707,7 @@ jQuery(".iaccordion-header").on("click",function(){
 										</div>
 										<div class="clearfix"></div>
 										<div class="part_3">
-											<div style="padding: 10px 0;;" class="upload">
+											<div style="padding: 10px 0;clear:both;" class="upload">
 												<div class="part_1">
 													<input id="<?php echo $value['id'] ?>_src" type="text" name="<?php echo $value['name'] ?>_src" value="<?php echo $bg_complete['src']; ?>" class="theme_src_upload"  />
 												</div>
@@ -4127,5 +4127,5 @@ if( isset($IF_CONFIG->components) && ! is_array($IF_CONFIG->components) ){
 
 global $IF;
 $IF = null;
-$IF = new ilen_framework_2_7_6;
+$IF = new ilen_framework_2_7_7;
 ?>

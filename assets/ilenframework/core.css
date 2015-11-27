@@ -2044,3 +2044,8 @@ html .ilenplugin-options input[type="button"],
     -o-box-decoration-break: clone;
     box-decoration-break: clone;
 }
+.ilenplugin-options .text_emphasis.custom{
+    padding: 1.2em 0em 0.2em 0em;
+    margin: 0.2em -0.8em 0.3em -0.5em;
+    border-radius: 50% 8em 50% 3em;
+}
